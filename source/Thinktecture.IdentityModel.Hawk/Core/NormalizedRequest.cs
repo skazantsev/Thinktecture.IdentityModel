@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
-using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {

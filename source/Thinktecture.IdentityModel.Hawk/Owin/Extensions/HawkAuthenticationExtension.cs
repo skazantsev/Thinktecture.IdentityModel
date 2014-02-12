@@ -1,10 +1,5 @@
-﻿using Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Owin.Extensions;
+﻿using Microsoft.Owin.Extensions;
+using Owin;
 
 namespace Thinktecture.IdentityModel.Hawk.Owin.Extensions
 {

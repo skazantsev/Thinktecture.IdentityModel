@@ -4,7 +4,6 @@
  */
 
 using System;
-using System.IdentityModel.Tokens;
 
 namespace Thinktecture.IdentityModel.WebApi.Authentication.Handler
 {

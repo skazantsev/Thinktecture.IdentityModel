@@ -2,9 +2,9 @@
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
-using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {

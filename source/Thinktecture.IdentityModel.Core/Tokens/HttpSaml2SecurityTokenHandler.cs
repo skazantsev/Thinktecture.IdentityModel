@@ -6,7 +6,6 @@
 using System.IdentityModel.Tokens;
 using System.IO;
 using System.Xml;
-using Thinktecture.IdentityModel;
 
 namespace Thinktecture.IdentityModel.Tokens
 {

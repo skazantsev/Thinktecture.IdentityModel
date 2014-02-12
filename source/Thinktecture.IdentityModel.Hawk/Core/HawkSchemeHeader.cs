@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
+using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {

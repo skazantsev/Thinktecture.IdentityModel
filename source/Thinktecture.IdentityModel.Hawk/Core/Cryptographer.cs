@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
-using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
+using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {

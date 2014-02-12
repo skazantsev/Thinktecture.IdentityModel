@@ -1,11 +1,7 @@
 ﻿using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using Thinktecture.IdentityModel.Hawk.Core;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;

@@ -15,7 +15,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.ServiceModel.Security;
 using System.Text;
-using System.Web;
 using System.Xml;
 using Thinktecture.IdentityModel.Constants;
 using Thinktecture.IdentityModel.Extensions;

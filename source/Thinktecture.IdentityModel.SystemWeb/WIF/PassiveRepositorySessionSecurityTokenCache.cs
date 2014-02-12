@@ -4,7 +4,6 @@ using System.IdentityModel.Services;
 using System.IdentityModel.Tokens;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 using System.Web.Security;
 
 namespace Thinktecture.IdentityModel.SystemWeb
