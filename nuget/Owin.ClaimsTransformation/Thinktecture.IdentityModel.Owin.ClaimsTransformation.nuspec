@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Dominick Baier, Brock Allen</authors>
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2013</copyright>
@@ -14,7 +14,7 @@
     </dependencies>
     
     <id>Thinktecture.IdentityModel.Owin.ClaimsTransformation</id>
-    <title>Thinktecture.IdentityModel - Claims Transformation for OWIN/Katana</title>
+    <title>Thinktecture.IdentityModel.Owin - Claims Transformation</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     
     <description>OWIN middleware for doing claims transformation in OWIN/Katana applications.</description>

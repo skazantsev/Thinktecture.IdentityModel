@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Dominick Baier, Brock Allen</authors>
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2013</copyright>
@@ -15,7 +15,7 @@
     </dependencies>
     
     <id>Thinktecture.IdentityModel.Owin.ClientCertificates</id>
-    <title>Thinktecture.IdentityModel - X.509 Client Certificate Authentication for OWIN/Katana</title>
+    <title>Thinktecture.IdentityModel.Owin- X.509 Client Certificate Authentication</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     
     <description>OWIN middleware for authenticating X.509 client certificates in OWIN/Katana applications.</description>

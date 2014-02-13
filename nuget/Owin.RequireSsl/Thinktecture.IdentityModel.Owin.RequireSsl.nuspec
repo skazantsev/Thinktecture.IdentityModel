@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Dominick Baier, Brock Allen</authors>
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2013</copyright>
@@ -14,13 +14,13 @@
     </dependencies>
     
     <id>Thinktecture.IdentityModel.Owin.RequireSsl</id>
-    <title>Thinktecture.IdentityModel - RequireSsl for OWIN/Katana</title>
+    <title>Thinktecture.IdentityModel.Owin - RequireSsl</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     
     <description>OWIN middleware for requiring SSL connections and client certificates.</description>
     <summary>OWIN middleware for requiring SSL connections and client certificates.</summary>
     
     <language>en-US</language>
-    <tags>Security OWIN Katana Identity Claims Authentication Authorization Access Control WebAPI Web API</tags>
+    <tags>Security OWIN Katana Identity Claims Authentication Authorization Access Control WebAPI Web API RequireSsl</tags>
   </metadata>
 </package>
