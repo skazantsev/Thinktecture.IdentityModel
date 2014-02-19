@@ -52,10 +52,13 @@ namespace Thinktecture.IdentityModel.EmbeddedSts.WsFed
             var html = AssetManager.LoadString(EmbeddedStsConstants.SignInFile);
 
             var users = UserManager.GetAllUserNames();
-            var ser = new JavaScriptSerializer();
-            var json = ser.Serialize(users.ToArray());
-            html = html.Replace("{userArray}", json);
-
+            var options = "";
+            foreach(var user in users)
+            {
+                options += String.Format("<option value='{0}'>{0}</option>", user);
+            }
+            html = html.Replace("{options}", options);
+            
             var url = Request.Url.PathAndQuery;
             html = html.Replace("{signInUrl}", url);
             

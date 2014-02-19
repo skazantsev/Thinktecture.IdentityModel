@@ -16,19 +16,10 @@
             <legend>Sign In As</legend>
             <p>
                 <label for="username">Username</label>
-                <select name="username" id="username"></select>
+                <select name="username" id="username">{options}</select>
             </p>
-            <p><button>Sign In</button></p>
+            <p><input type="submit" value="Sign In"/></p>
         </fieldset>
     </form>
-    <script>
-        var users = {userArray};
-        var select = document.getElementById("username");
-        for(var i = 0; i < users.length; i++){
-            var opt = document.createElement("option");
-            opt.value = opt.text = users[i];
-            select.appendChild(opt);
-        }
-    </script>
 </body>
 </html>
