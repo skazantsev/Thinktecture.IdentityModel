@@ -39,4 +39,14 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         SHA1,
         SHA256
     }
+
+    /// <summary>
+    /// The request part used to determine host name for creating normalized request.
+    /// </summary>
+    public enum HostNameSource
+    {
+        XForwardedForHeader,
+        HostHeader,
+        RequestUri
+    }
 }

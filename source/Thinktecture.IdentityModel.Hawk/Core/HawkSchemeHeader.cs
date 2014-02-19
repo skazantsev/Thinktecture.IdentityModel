@@ -32,7 +32,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                         credential = options.CredentialsCallback(artifacts.Id);
                         if (credential != null && credential.IsValid)
                         {
-                            var normalizedRequest = new NormalizedRequest(request, artifacts);
+                            var normalizedRequest = new NormalizedRequest(request, artifacts, options.HostNameSource);
                             var crypto = new Cryptographer(normalizedRequest, artifacts, credential);
 
                             // Request body is needed only when payload hash is present in the request
