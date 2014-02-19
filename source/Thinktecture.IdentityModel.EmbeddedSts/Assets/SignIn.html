@@ -25,8 +25,9 @@
         var users = {userArray};
         var select = document.getElementById("username");
         for(var i = 0; i < users.length; i++){
-            var opt = "<option>" + users[i] + "</option>";
-            select.innerHTML += opt;
+            var opt = document.createElement("option");
+            opt.value = opt.text = users[i];
+            select.appendChild(opt);
         }
     </script>
 </body>
