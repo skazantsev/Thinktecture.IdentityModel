@@ -1,4 +1,5 @@
 ﻿using System;
+using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
@@ -51,5 +52,12 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         /// in the MAC ('mac' field) sent in the Server-Authorization response header.
         /// </summary>
         public Func<IRequestMessage, bool> ResponsePayloadHashabilityCallback { get; set; }
+
+        /// <summary>
+        /// The request part used to determine the host name for creating normalized request.
+        /// If not specified, X-Forwarded-For header is tried first, then the Host request header,
+        /// and finally request URI.
+        /// </summary>
+        public HostNameSource? HostNameSource { get; set; }
     }
 }

@@ -38,18 +38,44 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         private readonly string hostName = null;
         private readonly string port = null;
 
-        internal NormalizedRequest(IRequestMessage request, ArtifactsContainer artifacts)
+        internal NormalizedRequest(IRequestMessage request,
+                                        ArtifactsContainer artifacts,
+                                            HostNameSource? hostNameSource = null)
         {
             this.artifacts = artifacts;
 
-            // Determine host and port - take the host name from X-Forwarded-For header, if present, or from
-            // the Host header, if present, or from the HttpRequestMessage object. For bewit, it is always from URI.
-            string firstPreference = IsBewit ? null : request.ForwardedFor;
-            string secondPreference = IsBewit ? null : request.Host;
+            // Case 1: For bewit, host and port are always from the request URI.
+            if (IsBewit)
+            {
+                this.hostName = request.Uri.Host;
+                this.port = request.Uri.Port.ToString();
+            }
+            else
+            {
+                if (hostNameSource.HasValue) // Case 2: NOT bewit and user has specified the host name source
+                {
+                    switch (hostNameSource.Value)
+                    {
+                        case HostNameSource.XForwardedForHeader:
+                            this.hostName = this.GetHostName(request.ForwardedFor, out this.port); break;
+                        case HostNameSource.HostHeader:
+                            this.hostName = this.GetHostName(request.Host, out this.port); break;
+                        case HostNameSource.RequestUri:
+                                this.hostName = request.Uri.Host; break;
+                    }
+                }
 
-            this.hostName = this.GetHostName(firstPreference, out this.port) ??
-                                this.GetHostName(secondPreference, out this.port) ??
-                                    request.Uri.Host;
+                if (String.IsNullOrWhiteSpace(this.hostName))
+                {
+                    // Case 3: NOT bewit and user has specified the host name source but unable to determine host name.
+                    // Case 4: NOT bewit and user has NOT specified the host name source.
+                    // For both cases, try X-Forwarded-For header first, then Host header, and finally request URI.
+
+                    this.hostName = this.GetHostName(request.ForwardedFor, out this.port) ??
+                                        this.GetHostName(request.Host, out this.port) ??
+                                            request.Uri.Host;
+                }
+            }
 
             if (String.IsNullOrWhiteSpace(this.port))
                 this.port = request.Uri.Port.ToString();

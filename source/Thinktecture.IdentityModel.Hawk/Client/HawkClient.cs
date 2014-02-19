@@ -122,7 +122,7 @@ namespace Thinktecture.IdentityModel.Hawk.Client
             if (options.NormalizationCallback != null)
                 this.artifacts.ApplicationSpecificData = options.NormalizationCallback(request);
 
-            var normalizedRequest = new NormalizedRequest(request, this.artifacts);
+            var normalizedRequest = new NormalizedRequest(request, this.artifacts, options.HostNameSource);
             this.crypto = new Cryptographer(normalizedRequest, this.artifacts, credential);
 
             // Sign the request

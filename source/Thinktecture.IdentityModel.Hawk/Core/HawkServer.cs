@@ -110,7 +110,10 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                         this.result.Artifacts.ApplicationSpecificData = options.NormalizationCallback(response);
 
                     // Sign the response
-                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts) { IsServerAuthorization = true };
+                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts, options.HostNameSource)
+                    {
+                        IsServerAuthorization = true
+                    };
                     var crypto = new Cryptographer(normalizedRequest, this.result.Artifacts, this.result.Credential);
 
                     // Response body is needed only if payload hash must be included in the response MAC.
