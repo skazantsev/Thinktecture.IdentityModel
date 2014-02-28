@@ -60,6 +60,7 @@ namespace Thinktecture.IdentityModel.Client
 			}
 			else if (style == ClientAuthenticationStyle.PostValues)
 			{
+				_authenticationStyle = style;
 				_clientId = clientId;
 				_clientSecret = clientSecret;
 			}
