@@ -26,6 +26,30 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
+        public string IdentityToken
+        {
+            get
+            {
+                return GetStringOrNull(OAuth2Constants.IdentityToken);
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                return GetStringOrNull(OAuth2Constants.Error);
+            }
+        }
+
+        public bool IsError
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error));
+            }
+        }
+
         public long ExpiresIn
         {
             get
