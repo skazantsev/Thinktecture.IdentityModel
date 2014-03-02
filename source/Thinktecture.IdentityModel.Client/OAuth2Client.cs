@@ -194,10 +194,16 @@ namespace Thinktecture.IdentityModel.Client
 		public async Task<TokenResponse> Request(Dictionary<string, string> form)
 		{
 			var response = await _client.PostAsync(string.Empty, new FormUrlEncodedContent(form)).ConfigureAwait(false);
-			response.EnsureSuccessStatusCode();
 
-			var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-			return new TokenResponse(content);
+            if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return new TokenResponse(content);
+            }
+            else
+            {
+                return new TokenResponse(response.StatusCode, response.ReasonPhrase);
+            }
 		}
 
 		private Dictionary<string, string> Merge(Dictionary<string, string> explicitValues, Dictionary<string, string> additionalValues = null)
