@@ -14,8 +14,8 @@ namespace Thinktecture.IdentityModel.Client
         public JObject Json { get; protected set; }
 
         private bool _isHttpError;
-        private HttpStatusCode _statusCode;
-        private string _reason;
+        private HttpStatusCode _httpErrorstatusCode;
+        private string _httpErrorReason;
 
         public TokenResponse(string raw)
         {
@@ -26,8 +26,8 @@ namespace Thinktecture.IdentityModel.Client
         public TokenResponse(HttpStatusCode statusCode, string reason)
         {
             _isHttpError = true;
-            _statusCode = statusCode;
-            _reason = reason;
+            _httpErrorstatusCode = statusCode;
+            _httpErrorReason = reason;
         }
 
         public bool IsHttpError
@@ -42,7 +42,7 @@ namespace Thinktecture.IdentityModel.Client
         {
             get
             {
-                return _statusCode;
+                return _httpErrorstatusCode;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Thinktecture.IdentityModel.Client
         {
             get
             {
-                return _reason;
+                return _httpErrorReason;
             }
         }
 
