@@ -38,7 +38,7 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
-        public HttpStatusCode ErrorStatusCode
+        public HttpStatusCode HttpErrorStatusCode
         {
             get
             {
@@ -46,7 +46,7 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
-        public string ErrorReason
+        public string HttpErrorReason
         {
             get
             {
