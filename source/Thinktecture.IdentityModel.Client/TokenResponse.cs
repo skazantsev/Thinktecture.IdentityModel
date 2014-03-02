@@ -4,6 +4,7 @@
  */
 
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace Thinktecture.IdentityModel.Client
 {
@@ -12,10 +13,45 @@ namespace Thinktecture.IdentityModel.Client
         public string Raw { get; protected set; }
         public JObject Json { get; protected set; }
 
+        private bool _isHttpError;
+        private HttpStatusCode _httpErrorstatusCode;
+        private string _httpErrorReason;
+
         public TokenResponse(string raw)
         {
             Raw = raw;
             Json = JObject.Parse(raw);
+        }
+
+        public TokenResponse(HttpStatusCode statusCode, string reason)
+        {
+            _isHttpError = true;
+            _httpErrorstatusCode = statusCode;
+            _httpErrorReason = reason;
+        }
+
+        public bool IsHttpError
+        {
+            get
+            {
+                return _isHttpError;
+            }
+        }
+
+        public HttpStatusCode HttpErrorStatusCode
+        {
+            get
+            {
+                return _httpErrorstatusCode;
+            }
+        }
+
+        public string HttpErrorReason
+        {
+            get
+            {
+                return _httpErrorReason;
+            }
         }
 
         public string AccessToken
@@ -46,7 +82,8 @@ namespace Thinktecture.IdentityModel.Client
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error));
+                return (!string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error)) ||
+                        IsHttpError);
             }
         }
 
