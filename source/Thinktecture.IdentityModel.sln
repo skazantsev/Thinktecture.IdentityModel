@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ClaimsTransformation", "Thinktecture.IdentityModel.Owin.ClaimsTransformation\Thinktecture.IdentityModel.Owin.ClaimsTransformation.csproj", "{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ScopeValidation", "Thinktecture.IdentityModel.Owin.ScopeValidation\Thinktecture.IdentityModel.Owin.ScopeValidation.csproj", "{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +111,6 @@ Global
 		{FE64BC6B-ED46-4712-A2A0-29DAB8182313} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 		{20C35BA9-0C51-44E2-9871-0CA7CFAED835} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 		{78C4352E-386D-4B7E-A1AA-01F77ABB27A9} = {E292B38C-341A-4274-84B1-C35D1E43F407}
+		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 	EndGlobalSection
 EndGlobal
