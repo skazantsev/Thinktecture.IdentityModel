@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
     <authors>Dominick Baier, Brock Allen</authors>
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2013</copyright>
@@ -13,15 +13,15 @@
     <title>Thinktecture.IdentityModel Client Library</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     
-    <description>Client library of Thinktecture.IdentityModel. Includes OAuth2Client and helpers for parsing token and authorize responses, Epoch Time helpers, extensions methods for HttpClient.</description>
-    <summary>Client library of Thinktecture.IdentityModel. Includes OAuth2Client and helpers for parsing token and authorize responses, Epoch Time helpers, extensions methods for HttpClient.</summary>
+    <description>Client library of Thinktecture.IdentityModel. Includes OAuth2 and OpenID Connect client and helpers for parsing token and authorize responses, Epoch Time helpers, extensions methods for HttpClient.</description>
+    <summary>Client library of Thinktecture.IdentityModel. Includes OAuth2 and OpenID Connect client and helpers for parsing token and authorize responses, Epoch Time helpers, extensions methods for HttpClient.</summary>
     
     <language>en-US</language>
     <tags>OAuth2 JWT Tokens Federation API Authorization</tags>
 
     <dependencies>
       <dependency id="Microsoft.Net.Http" version="2.2.18" />
-      <dependency id="Newtonsoft.Json" version="5.0.8" />
+      <dependency id="Newtonsoft.Json" version="6.0.1" />
     </dependencies>
   </metadata>
 </package>
