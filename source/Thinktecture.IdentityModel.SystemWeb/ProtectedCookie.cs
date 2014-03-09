@@ -16,7 +16,7 @@ namespace Thinktecture.IdentityModel.SystemWeb
     public class ProtectedCookie
     {
         private List<CookieTransform> _transforms;
-        private static ChunkedCookieHandler _handler = new ChunkedCookieHandler();
+		private readonly static ChunkedCookieHandler _handler = new ChunkedCookieHandler();
 
         // DPAPI protection (single server)
         public ProtectedCookie()
@@ -56,14 +56,15 @@ namespace Thinktecture.IdentityModel.SystemWeb
             _transforms = transforms;
         }
 
-        public void Write(string name, string value, DateTime expirationTime)
+		public void Write(string name, string value, DateTime expirationTime, HttpContext context = null)
         {
             byte[] encodedBytes = EncodeCookieValue(value);
 
-            _handler.Write(encodedBytes, name, expirationTime);
+			_handler.Write(encodedBytes, name, expirationTime, context ?? HttpContext.Current);
         }
 
-        public void Write(string name, string value, DateTime expirationTime, string domain, string path)
+		public void Write(string name, string value, DateTime expirationTime, string domain, string path,
+			HttpContext context = null)
         {
             byte[] encodedBytes = EncodeCookieValue(value);
 
@@ -74,12 +75,12 @@ namespace Thinktecture.IdentityModel.SystemWeb
                            expirationTime,
                            true,
                            true,
-                           HttpContext.Current);
+						   context ?? HttpContext.Current);
         }
 
-        public string Read(string name)
+        public string Read(string name, HttpContext context = null)
         {
-            var bytes = _handler.Read(name);
+            var bytes = _handler.Read(name, context ?? HttpContext.Current);
 
             if (bytes == null || bytes.Length == 0)
             {
@@ -89,9 +90,9 @@ namespace Thinktecture.IdentityModel.SystemWeb
             return DecodeCookieValue(bytes);
         }
 
-        public static void Delete(string name)
+		public static void Delete(string name, HttpContext context = null)
         {
-            _handler.Delete(name);
+			_handler.Delete(name, context ?? HttpContext.Current);
         }
 
         protected virtual byte[] EncodeCookieValue(string value)
