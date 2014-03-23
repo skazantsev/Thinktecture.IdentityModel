@@ -82,8 +82,8 @@ namespace Thinktecture.IdentityModel.Client
         {
             get
             {
-                return (!string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error)) ||
-                        IsHttpError);
+                return (IsHttpError ||
+                        !string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error)));
             }
         }
 
