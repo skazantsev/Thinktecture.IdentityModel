@@ -19,12 +19,7 @@ namespace Thinktecture.IdentityModel.Owin
 
         public override Task RequestToken(OAuthRequestTokenContext context)
         {
-            var value = context.Request.Headers.Get(_name);
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                context.Token = value;
-            }
+            context.Token = context.Request.Headers.Get(_name);
 
             return Task.FromResult<object>(null);
         }
