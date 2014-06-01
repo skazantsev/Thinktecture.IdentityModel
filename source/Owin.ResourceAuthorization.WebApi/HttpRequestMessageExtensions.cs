@@ -36,7 +36,7 @@ namespace System.Net.Http
 
         public static Task<bool> CheckAccessAsync(this HttpRequestMessage request, ResourceAuthorizationContext authorizationContext)
         {
-            return request.CheckAccessAsync(authorizationContext);
+            return request.GetOwinContext().CheckAccessAsync(authorizationContext);
         }
 
         private static async Task<bool> CheckAccessAsync(this IOwinContext context, ResourceAuthorizationContext authorizationContext)
