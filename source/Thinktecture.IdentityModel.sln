@@ -25,17 +25,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Owin", "Owin", "{E292B38C-341A-4274-84B1-C35D1E43F407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.RequireSsl", "Thinktecture.IdentityModel.Owin.RequireSsl\Thinktecture.IdentityModel.Owin.RequireSsl.csproj", "{70D7B120-A68B-43F3-8317-398C36B1B491}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.RequireSsl", "Thinktecture.IdentityModel.Owin.RequireSsl\Owin.RequireSsl.csproj", "{70D7B120-A68B-43F3-8317-398C36B1B491}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ClientCertificates", "Thinktecture.IdentityModel.Owin.ClientCertificates\Thinktecture.IdentityModel.Owin.ClientCertificates.csproj", "{FE64BC6B-ED46-4712-A2A0-29DAB8182313}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ClientCertificates", "Thinktecture.IdentityModel.Owin.ClientCertificates\Owin.ClientCertificates.csproj", "{FE64BC6B-ED46-4712-A2A0-29DAB8182313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.BasicAuthentication", "Thinktecture.IdentityModel.Owin.BasicAuthentication\Thinktecture.IdentityModel.Owin.BasicAuthentication.csproj", "{20C35BA9-0C51-44E2-9871-0CA7CFAED835}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.BasicAuthentication", "Thinktecture.IdentityModel.Owin.BasicAuthentication\Owin.BasicAuthentication.csproj", "{20C35BA9-0C51-44E2-9871-0CA7CFAED835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ClaimsTransformation", "Thinktecture.IdentityModel.Owin.ClaimsTransformation\Thinktecture.IdentityModel.Owin.ClaimsTransformation.csproj", "{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ClaimsTransformation", "Thinktecture.IdentityModel.Owin.ClaimsTransformation\Owin.ClaimsTransformation.csproj", "{78C4352E-386D-4B7E-A1AA-01F77ABB27A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ScopeValidation", "Thinktecture.IdentityModel.Owin.ScopeValidation\Thinktecture.IdentityModel.Owin.ScopeValidation.csproj", "{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ScopeValidation", "Thinktecture.IdentityModel.Owin.ScopeValidation\Owin.ScopeValidation.csproj", "{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin.ResourceAuthorization", "Owin.ResourceAuthorization\Thinktecture.IdentityModel.Owin.ResourceAuthorization.csproj", "{8FFA817F-8520-4F90-BE41-A38EB4CBA73D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ResourceAuthorization", "Owin.ResourceAuthorization\Owin.ResourceAuthorization.csproj", "{8FFA817F-8520-4F90-BE41-A38EB4CBA73D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ResourceAuthorization.Mvc", "Owin.ResourceAuthorization.Mvc\Owin.ResourceAuthorization.Mvc.csproj", "{35EEF778-E1E2-4C99-82A4-08014401ADC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{8FFA817F-8520-4F90-BE41-A38EB4CBA73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FFA817F-8520-4F90-BE41-A38EB4CBA73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FFA817F-8520-4F90-BE41-A38EB4CBA73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35EEF778-E1E2-4C99-82A4-08014401ADC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35EEF778-E1E2-4C99-82A4-08014401ADC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35EEF778-E1E2-4C99-82A4-08014401ADC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35EEF778-E1E2-4C99-82A4-08014401ADC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +125,6 @@ Global
 		{78C4352E-386D-4B7E-A1AA-01F77ABB27A9} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 		{8FFA817F-8520-4F90-BE41-A38EB4CBA73D} = {E292B38C-341A-4274-84B1-C35D1E43F407}
+		{35EEF778-E1E2-4C99-82A4-08014401ADC4} = {E292B38C-341A-4274-84B1-C35D1E43F407}
 	EndGlobalSection
 EndGlobal
