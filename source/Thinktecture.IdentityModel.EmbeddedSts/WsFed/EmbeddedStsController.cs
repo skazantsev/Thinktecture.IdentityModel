@@ -8,7 +8,6 @@ using System.IdentityModel.Services;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using Thinktecture.IdentityModel.EmbeddedSts.Assets;
 
 namespace Thinktecture.IdentityModel.EmbeddedSts.WsFed
