@@ -10,14 +10,19 @@ namespace Thinktecture.IdentityModel.Owin.ResourceAuthorization
             throw new NotImplementedException();
         }
 
-        public Task<bool> Ok()
+        protected virtual Task<bool> Ok()
         {
             return Task.FromResult(true);
         }
 
-        public Task<bool> Nok()
+        protected virtual Task<bool> Nok()
         {
             return Task.FromResult(false);
+        }
+
+        protected virtual Task<bool> Eval(bool val)
+        {
+            return Task.FromResult(val);
         }
     }
 }
