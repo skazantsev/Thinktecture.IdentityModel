@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Owin.ResourceAuthorization.Tests
 {
-    [Trait("ResourceAuthorizeAttribute", "No action")]
+    [Trait("WebApi & Owin", "Selfhosted testing")]
     public class WebApiPingTest : WebApiTestBase
     {
         public class WebApiUnderTestController : ApiController
@@ -19,7 +19,7 @@ namespace Owin.ResourceAuthorization.Tests
         [Fact(DisplayName = "WebApi on Owin up and running")]
         public async Task WebApiOnOwinUpAndRuning()
         {
-            var response = await Client.GetAsync("http://testserver/api/ping");
+            var response = await Client.GetAsync("api/ping");
             var result = await response.Content.ReadAsStringAsync();
 
             Assert.Equal("\"pong\"", result);
