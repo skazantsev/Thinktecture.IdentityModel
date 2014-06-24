@@ -1,0 +1,23 @@
+﻿@model WebApp.ViewModels.AlbumIndexViewModel
+
+@{
+    ViewData["Title"] = "Album Index";
+}
+
+<div class="page-header">
+    <h1>Album Index</h1>
+</div>
+
+@Html.Partial("AlbumViewModelTable", Model.Albums)
+
+<ul class="pagination">
+    <li><a href="~/Album/Index?page=1">&laquo;</a></li>
+    @for (var i = Math.Max(1, Model.CurrentPage - 3); i <= Math.Max(Model.CurrentPage + 3, 7); i++)
+    {
+        if (i >= 1 && i <= Model.TotalPages)
+        {
+            <li class="@(Model.CurrentPage == i ? "active":"")"><a href="~/Album/Index?page=@i">@i</a></li>
+        }
+    }
+    <li><a href="~/Album/Index?page=@Model.TotalPages">&raquo;</a></li>
+</ul>

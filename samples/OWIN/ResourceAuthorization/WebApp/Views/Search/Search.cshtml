@@ -1,0 +1,43 @@
+﻿@model WebApp.ViewModels.AlbumSearchViewModel
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<div class="page-header">
+    <h1>Search Results</h1>
+</div>
+
+@if (Model.Albums.Count() == 0)
+{
+    <div>No Albums Found</div>
+}
+else
+{
+    @Html.Partial("AlbumViewModelTable", Model.Albums)
+
+    @*<table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Album Title</th>
+                <th>Artist</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var album in Model.Albums)
+            {
+                <tr>
+                    <td>
+                        <img width="60" height="60" src="@Url.Action("AlbumCover", "Album", new { id=album.AlbumID })" alt="@album.Title" />
+                    </td>
+                    <td>
+                        @Html.ActionLink(album.Title, "Edit", "Album", new { id = album.AlbumID }, null)
+                    </td>
+                    <td>
+                        @album.Artist
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+}

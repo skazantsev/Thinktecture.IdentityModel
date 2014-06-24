@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{4859F05C-6298-447C-9A5F-F941A0390A8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chinook", "Chinook\Chinook.csproj", "{803BAF42-1964-4A63-96AA-7A4F917BF2FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Tests", "WebApp.Tests\WebApp.Tests.csproj", "{6674402E-796D-4412-B6FA-803995EB86E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4859F05C-6298-447C-9A5F-F941A0390A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4859F05C-6298-447C-9A5F-F941A0390A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4859F05C-6298-447C-9A5F-F941A0390A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4859F05C-6298-447C-9A5F-F941A0390A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{803BAF42-1964-4A63-96AA-7A4F917BF2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{803BAF42-1964-4A63-96AA-7A4F917BF2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{803BAF42-1964-4A63-96AA-7A4F917BF2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{803BAF42-1964-4A63-96AA-7A4F917BF2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6674402E-796D-4412-B6FA-803995EB86E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6674402E-796D-4412-B6FA-803995EB86E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6674402E-796D-4412-B6FA-803995EB86E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6674402E-796D-4412-B6FA-803995EB86E0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

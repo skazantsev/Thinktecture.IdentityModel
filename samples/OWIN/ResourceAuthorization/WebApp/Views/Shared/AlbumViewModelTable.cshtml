@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WebApp.ViewModels.AlbumViewModel>
+
+<table class="table table-condensed table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Album Title</th>
+            <th>Artist</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var album in Model)
+        {
+            <tr>
+                <td>
+                    @if(Context.CheckAccess(ChinookResources.AlbumActions.Edit, ChinookResources.Album))
+                    {
+                        @Html.ActionLink("edit", "Edit", "Album", new { id = album.AlbumID }, new { @class = "btn btn-primary" })
+                    }
+                    @*@if(User.IsInRole("Admin"))
+                    { 
+                        @Html.ActionLink("edit", "Edit", "Album", new { id = album.AlbumID }, new { @class = "btn btn-primary" })
+                    }*@
+                </td>
+                <td>
+                    @album.Title
+                </td>
+                <td>
+                    @album.Artist
+                </td>
+                <td>
+                    <img width="40" height="40"
+                         src="@Url.Action("AlbumCover", "Album", new { id=album.AlbumID })" alt="@album.Title" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

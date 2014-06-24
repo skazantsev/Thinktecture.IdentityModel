@@ -1,0 +1,10 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <span class="navbar-text">Logged in as @User.Identity.Name</span>
+    <a href="/Logout" class="btn btn-primary navbar-btn">Logout</a>
+}
+else
+{
+    <span class="navbar-text">Not Logged In</span>
+    <a href="/Login" class="btn btn-primary navbar-btn">Login</a>
+}

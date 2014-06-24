@@ -1,0 +1,42 @@
+﻿@model WebApp.Models.TrackEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Track ID " + Model.Track.ID;
+}
+
+<div class="page-header">
+    <h1>Track Edit <small>ID: @Model.Track.ID</small></h1>
+</div>
+
+@using (Html.BeginForm("Update", "Track"))
+{
+    @*@Html.ValidationSummary("Please correct the following problems:")*@
+
+    <fieldset class="col-sm-6">
+        @Html.HiddenFor(x => x.Track.ID)
+        <div class="form-group">
+            @Html.LabelFor(x => x.Track.Name)
+            @Html.ValidationMessageFor(x => x.Track.Name, null, new { @class = "label label-danger pull-right" })
+            @Html.TextBoxFor(x => x.Track.Name, new { @class="form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Track.AlbumID)
+            @Html.ValidationMessageFor(x => x.Track.AlbumID, null, new { @class = "label label-danger pull-right" })
+            @Html.DropDownListFor(x => x.Track.AlbumID, Model.Albums, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Track.GenreID)
+            @Html.ValidationMessageFor(x => x.Track.GenreID, null, new { @class = "label label-danger pull-right" })
+            @Html.DropDownListFor(x => x.Track.GenreID, Model.Genres, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Track.Price)
+            @Html.ValidationMessageFor(x => x.Track.Price, null, new { @class = "label label-danger pull-right" })
+            @Html.TextBoxFor(x => x.Track.Price, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Save Changes</button>
+            @Html.ActionLink("Back to album", "Edit", "Album", new { id = Model.Track.AlbumID }, new { @class = "btn btn-default" })
+        </div>
+    </fieldset>
+}

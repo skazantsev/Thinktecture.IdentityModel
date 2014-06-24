@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@(ViewData["Title"] ?? "Chinkook Music")</title>
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="~/">
+                    Chinook Music
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="menu">
+                <ul class="nav navbar-nav">
+                    <li><a href="~/Album">Albums</a></li>
+                </ul>
+                <div class="navbar-right">
+                    @Html.Partial("CurrentUser")
+                </div>
+                <form action="~/Search" class="navbar-form navbar-right" method="get">
+                    <div class="form-group">
+                        <input type="text" name="phrase" placeholder="Search" class="form-control">
+                    </div>
+                    <button class="btn btn-default">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="main">
+        @RenderBody()
+    </div>
+
+    <footer class="navbar-fixed-bottom navbar-inverse">
+        <div class="navbar-text">Copyright @DateTime.Now.Year (not really, but it makes for a typical footer)</div>
+    </footer>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", false)
+
+</body>
+</html>

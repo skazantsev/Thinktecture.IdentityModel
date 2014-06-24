@@ -1,0 +1,40 @@
+﻿@model WebApp.ViewModels.AlbumEditViewModel
+
+@{
+    ViewData["Title"] = "Album Edit ID " + Model.Album.AlbumID;
+}
+
+<div class="page-header">
+    <h1>Album Edit <small>ID: @Model.Album.AlbumID</small></h1>
+</div>
+
+@using (Html.BeginForm("Update", "Album"))
+{
+    <fieldset class="col-sm-6">
+        @Html.HiddenFor(x => x.Album.AlbumID)
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Album.Title)
+            @Html.ValidationMessageFor(x => x.Album.Title, null, new { @class = "label label-danger pull-right" })
+            @Html.TextBoxFor(x => x.Album.Title, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(x => x.Album.ArtistID, "Artist")
+            @Html.ValidationMessageFor(x => x.Album.ArtistID, null, new { @class = "label label-danger pull-right" })
+            @Html.DropDownListFor(x => x.Album.ArtistID, Model.Artists, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Save Changes</button>
+        </div>
+    </fieldset>
+}
+
+@if (Context.CheckAccess(ChinookResources.TrackActions.Edit, ChinookResources.Track))
+{ 
+    <div class="col-sm-5 col-sm-offset-1">
+        @Html.Action("List", "Track", new { albumID = Model.Album.AlbumID })
+    </div>
+}
+

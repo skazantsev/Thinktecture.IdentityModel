@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Chinook.DomainModel.Track>
+
+<div class="panel panel-default">
+    <div class="panel-heading">Tracks</div>
+    <ol class="list-group">
+        @{
+            var list = Model.ToArray();
+        }
+        @for (var i = 0; i < list.Length; i++)
+        {
+            var track = list[i];
+            <li class="list-group-item track-list-item">
+                <span class="label label-default">@(i+1)</span>
+                @Html.ActionLink(track.Name, "Edit", new { id = track.ID })
+            </li>
+        }
+    </ol>
+
+</div>

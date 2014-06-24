@@ -1,0 +1,53 @@
+body
+{
+    padding-top:40px;
+}
+
+#main > header {
+    background-image:url(logo.png);
+    background-position:left;
+    background-position-y:-18px;
+    background-repeat:no-repeat;
+    padding-left:120px;
+}
+
+body > footer .navbar-text{
+    float:none;
+    text-align:center;
+}
+
+.track-list-item .label{
+    margin-right:5px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+/*
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+*/
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
