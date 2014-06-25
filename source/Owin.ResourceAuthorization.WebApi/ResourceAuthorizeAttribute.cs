@@ -4,7 +4,10 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
@@ -26,23 +29,18 @@ namespace Thinktecture.IdentityModel.WebApi
 
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            if (!string.IsNullOrWhiteSpace(_action))
-            {
-                return CheckAccess(actionContext.Request, _action, _resources);
-            }
-            else
-            {
-                var action = actionContext.ActionDescriptor.ActionName;
-                var resource = actionContext.ControllerContext.ControllerDescriptor.ControllerName;
+            var action = ActionFromAttribute() ?? actionContext.ActionFromController();
+            var resources = ResourcesFromAttribute() ?? actionContext.ResourceFromController();
 
-                return CheckAccess(actionContext.Request, action, resource);
-            }
+            resources.AddRange(actionContext.ResourcesFromRouteParameters());
+
+            return CheckAccess(actionContext.Request, action, resources.ToArray());
         }
 
-        protected virtual bool CheckAccess(HttpRequestMessage request, string action, params string[] resources)
+        protected virtual bool CheckAccess(HttpRequestMessage request, Claim action, params Claim[] resources)
         {
-            var task = request.CheckAccessAsync(action, resources);
-            
+            var task = request.CheckAccessAsync(new[] { action } , resources);
+
             if (task.Wait(5000))
             {
                 return task.Result;
@@ -51,6 +49,21 @@ namespace Thinktecture.IdentityModel.WebApi
             {
                 throw new TimeoutException();
             }
+        }
+
+        private Claim ActionFromAttribute()
+        {
+            return !string.IsNullOrWhiteSpace(_action) ? new Claim("name", _action) : null;
+        }
+
+        private List<Claim> ResourcesFromAttribute()
+        {
+            if ((_resources != null) && (_resources.Any()))
+            {
+                return _resources.Select(r => new Claim("name", r)).ToList();
+            }
+
+            return null;
         }
     }
 }

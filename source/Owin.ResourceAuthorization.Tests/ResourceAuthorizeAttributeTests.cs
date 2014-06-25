@@ -1,9 +1,8 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Thinktecture.IdentityModel.Owin.ResourceAuthorization;
@@ -16,9 +15,9 @@ namespace Owin.ResourceAuthorization.Tests
     public class ResourceAuthorizeAttributeTests : WebApiTestBase
     {
         private ResourceAuthorizationContext _context;
-        private HttpResponseMessage _response;
+        private readonly HttpResponseMessage _response;
 
-        public class ResourceAuthorizeAttributeTestsController : ApiController 
+        public class ResourceAuthorizeAttributeTestsController : ApiController
         {
             [HttpGet, Route("api/protected")]
             [ResourceAuthorize("read", "protected")]
@@ -44,39 +43,21 @@ namespace Owin.ResourceAuthorization.Tests
         }
 
         [Fact(DisplayName = "Response should be success")]
-        public async Task CheckResponse()
+        public void CheckResponse()
         {
-            _response.IsSuccessStatusCode.Should().BeTrue();   
+            _response.IsSuccessStatusCode.Should().BeTrue();
         }
 
         [Fact(DisplayName = "Context contains Action")]
-        public async Task CheckAction()
+        public void CheckAction()
         {
             _context.ActionNames().Should().Contain("read");
         }
 
         [Fact(DisplayName = "Context contains Resource")]
-        public async Task CheckResource()
+        public void CheckResource()
         {
             _context.ResourceNames().Should().Contain("protected");
-        }
-    }
-
-    public static class ResourceAuthorizationContextExtensions
-    {
-        public static IEnumerable<string> ClaimNames(this IEnumerable<Claim> claims)
-        {
-            return claims.Where(c => c.Type == "name").Select(c => c.Value);
-        }
-
-        public static IEnumerable<string> ActionNames(this ResourceAuthorizationContext context)
-        {
-            return context.Action.ClaimNames();
-        }
-
-        public static IEnumerable<string> ResourceNames(this ResourceAuthorizationContext context)
-        {
-            return context.Resource.ClaimNames();
         }
     }
 }
