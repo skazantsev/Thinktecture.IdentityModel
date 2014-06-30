@@ -19,7 +19,7 @@ namespace Thinktecture.IdentityModel.Owin.ResourceAuthorization
 
         public async Task Invoke(IDictionary<string, object> env)
         {
-            env[Key] = _options.Manager;
+            env[Key] = _options.Manager ?? _options.ManagerProvider(env);
             await _next(env);
         }
     }
