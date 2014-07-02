@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using FluentAssertions;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
-using FluentAssertions;
 using Thinktecture.IdentityModel.Owin.ResourceAuthorization;
 using Thinktecture.IdentityModel.WebApi;
 using Xunit;

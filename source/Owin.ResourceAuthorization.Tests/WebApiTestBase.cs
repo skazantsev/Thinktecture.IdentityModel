@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Owin.Testing;
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.Owin.Testing;
 using Thinktecture.IdentityModel.Owin.ResourceAuthorization;
 
 namespace Owin.ResourceAuthorization.Tests
