@@ -49,7 +49,7 @@ namespace Thinktecture.IdentityModel.Hawk.Owin
 
         public void AddHeader(string name, string value)
         {
-            this.response.Headers.Add(name, new[] { value });
+            this.response.Headers.AppendValues(name, value);
         }
 
         public string ContentType
