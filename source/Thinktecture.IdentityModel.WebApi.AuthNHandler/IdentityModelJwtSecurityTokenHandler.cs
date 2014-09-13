@@ -16,7 +16,8 @@ namespace Thinktecture.IdentityModel.Tokens
     {
         TokenValidationParameters _validationParams;
 
-        public IdentityModelJwtSecurityTokenHandler() : base()
+        public IdentityModelJwtSecurityTokenHandler()
+            : base()
         { }
 
         public IdentityModelJwtSecurityTokenHandler(TokenValidationParameters validationParams, Dictionary<string, string> inboundClaimTypeMap = null)
