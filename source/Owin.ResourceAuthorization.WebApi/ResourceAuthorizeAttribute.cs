@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
@@ -75,6 +76,20 @@ namespace Thinktecture.IdentityModel.WebApi
             }
 
             return null;
+        }
+
+        protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
+        {
+            if (actionContext.ControllerContext.RequestContext.Principal != null &&
+                actionContext.ControllerContext.RequestContext.Principal.Identity != null &&
+                actionContext.ControllerContext.RequestContext.Principal.Identity.IsAuthenticated)
+            {
+                actionContext.Response = actionContext.ControllerContext.Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Forbidden");
+            }
+            else
+            {
+                actionContext.Response = actionContext.ControllerContext.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
         }
     }
 }
