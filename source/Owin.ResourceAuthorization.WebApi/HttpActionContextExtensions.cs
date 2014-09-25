@@ -14,12 +14,12 @@ namespace Thinktecture.IdentityModel.WebApi
 
         public static List<Claim> ResourceFromController(this HttpActionContext actionContext)
         {
-            return new List<Claim> { new Claim("name", actionContext.ControllerContext.ControllerDescriptor.ControllerName) };
+            return new List<Claim> { new Claim("controller", actionContext.ControllerContext.ControllerDescriptor.ControllerName) };
         }
 
         public static Claim ActionFromController(this HttpActionContext actionContext)
         {
-            return new Claim("name", actionContext.ActionDescriptor.ActionName);
+            return new Claim("action", actionContext.ActionDescriptor.ActionName);
         }
     }
 }

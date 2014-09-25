@@ -29,17 +29,28 @@ namespace Thinktecture.IdentityModel.WebApi
 
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            var action = ActionFromAttribute() ?? actionContext.ActionFromController();
-            var resources = ResourcesFromAttribute() ?? actionContext.ResourceFromController();
+            var actions = new List<Claim>();
+            
+            var action = ActionFromAttribute();
+            if (action != null) actions.Add(action);
+            
+            actions.Add(actionContext.ActionFromController());
 
-            resources.AddRange(actionContext.ResourcesFromRouteParameters());
+            var resources = new List<Claim>();
+            var resourceList = ResourcesFromAttribute();
+            if (resourceList != null) resources.AddRange(resourceList);
+            resources.AddRange(actionContext.ResourceFromController());
 
-            return CheckAccess(actionContext.Request, action, resources.ToArray());
+            // filter "controller" since we're already adding it explicitly in the above code
+            var routeClaims = actionContext.ResourcesFromRouteParameters().Where(x => x.Type != "controller");
+            resources.AddRange(routeClaims);
+
+            return CheckAccess(actionContext.Request, actions.ToArray(), resources.Distinct(new ClaimComparer()).ToArray());
         }
 
-        protected virtual bool CheckAccess(HttpRequestMessage request, Claim action, params Claim[] resources)
+        protected virtual bool CheckAccess(HttpRequestMessage request, Claim[] actions, params Claim[] resources)
         {
-            var task = request.CheckAccessAsync(new[] { action } , resources);
+            var task = request.CheckAccessAsync(actions, resources);
 
             if (task.Wait(5000))
             {
