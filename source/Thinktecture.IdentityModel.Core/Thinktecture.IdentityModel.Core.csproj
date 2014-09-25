@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationInstantClaim.cs" />
     <Compile Include="Base64Url.cs" />
+    <Compile Include="ClaimComparer.cs" />
     <Compile Include="Http\BasicAuthenticationHeaderValue.cs" />
     <Compile Include="Http\CertPinningWebRequestHandler.cs" />
     <Compile Include="ClaimsAuthorization.cs" />
