@@ -27,7 +27,9 @@ namespace Thinktecture.IdentityModel.Owin.ScopeValidation
             }
             else
             {
-                context.Response.StatusCode = 401;
+                context.Response.StatusCode = 403;
+                context.Response.Headers.Add("WWW-Authenticate", new[] { "Bearer error=\"insufficient_scope\"" });
+                
                 return;
             }
         }
