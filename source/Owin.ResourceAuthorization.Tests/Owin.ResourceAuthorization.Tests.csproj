@@ -98,7 +98,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DelegatedResourceAuthorizationManager.cs" />
+    <Compile Include="ResourceAuthorizationContextExtensions.cs" />
     <Compile Include="ResourceAuthorizeAttributeTests.cs" />
+    <Compile Include="ResourceAuthorizationAttributeActionParametersTests.cs" />
     <Compile Include="WebApiPingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiTestBase.cs" />

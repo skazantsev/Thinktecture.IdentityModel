@@ -15,9 +15,9 @@ namespace Thinktecture.IdentityModel.Client
         public static long ToEpochTime(this DateTime dateTime)
         {
             var date = dateTime.ToUniversalTime();
-            var ts = date - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-
-            return Convert.ToInt64(ts.TotalSeconds);
+            var ticks = date.Ticks - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).Ticks;
+            var ts = ticks / TimeSpan.TicksPerSecond;
+            return ts;
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace Thinktecture.IdentityModel.Client
         public static long ToEpochTime(this DateTimeOffset dateTime)
         {
             var date = dateTime.ToUniversalTime();
-            var ts = date - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
-
-            return Convert.ToInt64(ts.TotalSeconds);
+            var ticks = date.Ticks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks;
+            var ts = ticks / TimeSpan.TicksPerSecond;
+            return ts;
         }
 
         /// <summary>
@@ -36,7 +36,8 @@ namespace Thinktecture.IdentityModel.Client
         /// </summary>
         public static DateTime ToDateTimeFromEpoch(this long intDate)
         {
-            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(intDate);
+            var timeInTicks = intDate * TimeSpan.TicksPerSecond;
+            return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddTicks(timeInTicks);
         }
 
         /// <summary>
@@ -44,7 +45,8 @@ namespace Thinktecture.IdentityModel.Client
         /// </summary>
         public static DateTimeOffset ToDateTimeOffsetFromEpoch(this long intDate)
         {
-            return new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).AddSeconds(intDate);
+            var timeInTicks = intDate * TimeSpan.TicksPerSecond;
+            return new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).AddTicks(timeInTicks);
         }
     }
 }

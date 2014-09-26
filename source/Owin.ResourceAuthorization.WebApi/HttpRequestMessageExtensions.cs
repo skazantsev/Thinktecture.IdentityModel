@@ -14,16 +14,6 @@ namespace System.Net.Http
 {
     public static class HttpRequestMessageExtensions
     {
-        public static Task<bool> CheckAccessAsync(this HttpRequestMessage request, string action, params string[] resources)
-        {
-            var authorizationContext = new ResourceAuthorizationContext(
-                request.GetOwinContext().Authentication.User ?? Principal.Anonymous,
-                action,
-                resources);
-
-            return request.CheckAccessAsync(authorizationContext);
-        }
-
         public static Task<bool> CheckAccessAsync(this HttpRequestMessage request, IEnumerable<Claim> actions, IEnumerable<Claim> resources)
         {
             var authorizationContext = new ResourceAuthorizationContext(
