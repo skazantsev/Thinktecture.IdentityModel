@@ -4,6 +4,7 @@
  */
 
 using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 
 namespace Thinktecture.IdentityModel.Client
@@ -114,7 +115,7 @@ namespace Thinktecture.IdentityModel.Client
         protected virtual string GetStringOrNull(string name)
         {
             JToken value;
-            if (Json.TryGetValue(name, out value))
+            if (Json.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out value))
             {
                 return value.ToString();
             }
