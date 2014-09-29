@@ -190,7 +190,7 @@ namespace Thinktecture.IdentityModel.Client
             return RequestAsync(Merge(fields, additionalValues));
         }
 
-        public Task<TokenResponse> RequestCustomGrantAsync(Dictionary<string, string> values)
+        public Task<TokenResponse> RequestCustomAsync(Dictionary<string, string> values)
         {
             return RequestAsync(Merge(values));
         }
