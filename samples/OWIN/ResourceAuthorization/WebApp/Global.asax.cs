@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc;
 
 namespace WebApp
 {
@@ -9,8 +10,9 @@ namespace WebApp
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            
+
             GlobalFilters.Filters.Add(new AuthorizeAttribute());
+            GlobalFilters.Filters.Add(new ForbiddenFilterAttribute());
         }
     }
 }

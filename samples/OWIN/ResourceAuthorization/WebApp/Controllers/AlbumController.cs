@@ -1,5 +1,6 @@
 ﻿using Chinook.Repository;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Thinktecture.IdentityModel.Owin.Authorization.Mvc;
@@ -30,7 +31,9 @@ namespace WebApp.Controllers
                 ChinookResources.Album,
                 id.ToString()))
             {
-                return new HttpUnauthorizedResult();
+                //return new HttpUnauthorizedResult();
+                //return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+                return this.AccessDenied();
             }
 
             var album = _musicRepository.GetAlbum(id);
@@ -48,7 +51,8 @@ namespace WebApp.Controllers
                 ChinookResources.Album, 
                 album.AlbumID.ToString()))
             {
-                return new HttpUnauthorizedResult();
+                //return new HttpUnauthorizedResult();
+                return this.AccessDenied();
             }
 
             _musicRepository.SaveAlbum(album.GetAlbum());
