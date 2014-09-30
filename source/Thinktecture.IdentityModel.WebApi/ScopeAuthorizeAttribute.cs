@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -57,8 +58,10 @@ namespace Thinktecture.IdentityModel.WebApi
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)
         {
-            actionContext.Response.StatusCode = HttpStatusCode.Forbidden;
-            actionContext.Response.Headers.Add("WWW-Authenticate", "Bearer error=\"insufficient_scope\"");
+            var response = actionContext.Request.CreateErrorResponse(HttpStatusCode.Forbidden, "insufficient_scope");
+            response.Headers.Add("WWW-Authenticate", "Bearer error=\"insufficient_scope\"");
+
+            actionContext.Response = response;
         }
     }
 }
