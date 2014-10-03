@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace Thinktecture.IdentityModel.Client
 {
@@ -34,32 +32,15 @@ namespace Thinktecture.IdentityModel.Client
             _client.SetBearerToken(token);
         }
 
-        public async Task<IEnumerable<Tuple<string, string>>> GetAsync()
+        public async Task<UserInfoResponse> GetAsync()
         {
             var response = await _client.GetAsync("");
 
             if (response.StatusCode != HttpStatusCode.OK)
-                return null;
+                return new UserInfoResponse(response.StatusCode, response.ReasonPhrase);
 
-            var json = await response.Content.ReadAsStringAsync();
-            JObject jObject;
-
-            try
-            {
-                jObject = JObject.Parse(json);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-            var claims = new List<Tuple<string, string>>();
-            foreach (var x in jObject)
-            {
-                claims.Add(Tuple.Create(x.Key, x.Value.ToString()));
-            }
-
-            return claims;
+            var content = await response.Content.ReadAsStringAsync();
+            return new UserInfoResponse(content);
         }
     }
 }
