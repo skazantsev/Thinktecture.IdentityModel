@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc;
 
 namespace Thinktecture.IdentityModel.Owin.Authorization.Mvc
 {
@@ -74,16 +75,7 @@ namespace Thinktecture.IdentityModel.Owin.Authorization.Mvc
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            if (filterContext.HttpContext.User != null &&
-                filterContext.HttpContext.User.Identity != null &&
-                filterContext.HttpContext.User.Identity.IsAuthenticated)
-            {
-                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }
-            else
-            {
-                filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
-            }
+            filterContext.Result = new AccessDeniedResult();
         }
     }
 }

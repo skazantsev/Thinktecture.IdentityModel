@@ -11,7 +11,7 @@ namespace Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc
     {
         string viewName;
         public ForbiddenFilterAttribute()
-            : this("AccessDenied")
+            : this("Forbidden")
         {
         }
 
