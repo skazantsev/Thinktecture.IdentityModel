@@ -184,7 +184,7 @@
     <Content Include="Views\Account\Logout.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\CurrentUser.cshtml" />
-    <Content Include="Views\Shared\AccessDenied.cshtml" />
+    <Content Include="Views\Shared\Forbidden.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
