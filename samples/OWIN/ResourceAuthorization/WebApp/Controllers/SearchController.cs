@@ -1,6 +1,6 @@
 ﻿using Chinook.Repository;
 using System.Web.Mvc;
-using Thinktecture.IdentityModel.Owin.Authorization.Mvc;
+using Thinktecture.IdentityModel.Mvc;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers

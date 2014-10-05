@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Thinktecture.IdentityModel.Owin.Authorization.Mvc;
+using Thinktecture.IdentityModel.Mvc;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -31,8 +31,6 @@ namespace WebApp.Controllers
                 ChinookResources.Album,
                 id.ToString()))
             {
-                //return new HttpUnauthorizedResult();
-                //return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
                 return this.AccessDenied();
             }
 
@@ -51,7 +49,6 @@ namespace WebApp.Controllers
                 ChinookResources.Album, 
                 album.AlbumID.ToString()))
             {
-                //return new HttpUnauthorizedResult();
                 return this.AccessDenied();
             }
 
