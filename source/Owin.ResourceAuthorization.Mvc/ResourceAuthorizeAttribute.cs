@@ -2,9 +2,8 @@
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc;
 
-namespace Thinktecture.IdentityModel.Owin.Authorization.Mvc
+namespace Thinktecture.IdentityModel.Mvc
 {
     public class ResourceAuthorizeAttribute : AuthorizeAttribute
     {
@@ -75,7 +74,7 @@ namespace Thinktecture.IdentityModel.Owin.Authorization.Mvc
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new AccessDeniedResult();
+            filterContext.Result = new AccessDeniedResult(filterContext.HttpContext.Request);
         }
     }
 }

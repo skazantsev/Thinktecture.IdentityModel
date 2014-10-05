@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Mvc.Filters;
 
-namespace Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc
+namespace Thinktecture.IdentityModel.Mvc
 {
-    public class ForbiddenFilterAttribute : ActionFilterAttribute
+    public class HandleForbiddenAttribute : ActionFilterAttribute, IAuthenticationFilter
     {
         string viewName;
-        public ForbiddenFilterAttribute()
+        public HandleForbiddenAttribute()
             : this("Forbidden")
         {
         }
 
-        public ForbiddenFilterAttribute(string viewName)
+        public HandleForbiddenAttribute(string viewName)
         {
             if (String.IsNullOrWhiteSpace(viewName))
             {
@@ -27,7 +28,27 @@ namespace Thinktecture.IdentityModel.Owin.ResourceAuthorization.Mvc
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            if (!filterContext.IsChildAction)
+            if (!filterContext.IsChildAction && !filterContext.HttpContext.Request.IsAjaxRequest())
+            {
+                var statusCodeResult = filterContext.Result as HttpStatusCodeResult;
+                if (statusCodeResult != null &&
+                    statusCodeResult.StatusCode == 403)
+                {
+                    filterContext.Result = new ViewResult()
+                    {
+                        ViewName = this.viewName
+                    };
+                }
+            }
+        }
+
+        public void OnAuthentication(AuthenticationContext filterContext)
+        {
+        }
+
+        public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
+        {
+            if (!filterContext.IsChildAction && !filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 var statusCodeResult = filterContext.Result as HttpStatusCodeResult;
                 if (statusCodeResult != null &&

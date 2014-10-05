@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Thinktecture.IdentityModel.Mvc;
+using Thinktecture.IdentityModel.WebApi;
 
-namespace System.Web.Mvc
+namespace System.Web.Http
 {
-    public static class ControllerExtensions
+    public static class ApiControllerExtensions
     {
-        public static HttpStatusCodeResult AccessDenied(this Controller controller)
+        public static IHttpActionResult AccessDenied(this ApiController controller)
         {
             if (controller == null) throw new ArgumentNullException("controller");
+
             return new AccessDeniedResult(controller.Request);
         }
     }

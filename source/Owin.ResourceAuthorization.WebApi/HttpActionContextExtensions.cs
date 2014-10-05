@@ -7,7 +7,7 @@ namespace Thinktecture.IdentityModel.WebApi
 {
     public static class HttpActionContextExtensions 
     {
-        public static IEnumerable<Claim> ResourcesFromRouteParameters(this  HttpActionContext actionContext)
+        public static IEnumerable<Claim> ResourcesFromRouteParameters(this HttpActionContext actionContext)
         {
             return actionContext.ControllerContext.RouteData.Values.Select(arg => new Claim(arg.Key, arg.Value.ToString()));
         }
