@@ -13,7 +13,7 @@ namespace Thinktecture.IdentityModel.Client
             : this(endpoint, token, new HttpClientHandler())
         { }
 
-        public UserInfoClient(Uri endpoint, string token, HttpClientHandler inneHttpClientHandler)
+        public UserInfoClient(Uri endpoint, string token, HttpClientHandler innerHttpClientHandler)
         {
             if (endpoint == null)
                 throw new ArgumentNullException("endpoint");
@@ -21,10 +21,10 @@ namespace Thinktecture.IdentityModel.Client
             if (string.IsNullOrEmpty(token))
                 throw new ArgumentNullException("token");
 
-            if (inneHttpClientHandler == null)
+            if (innerHttpClientHandler == null)
                 throw new ArgumentNullException("inneHttpClientHandler");
 
-            _client = new HttpClient(inneHttpClientHandler)
+            _client = new HttpClient(innerHttpClientHandler)
             {
                 BaseAddress = endpoint
             };
