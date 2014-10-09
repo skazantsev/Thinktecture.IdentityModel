@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <authors>Dominick Baier, Brock Allen</authors>
     <owners>Dominick Baier, Brock Allen</owners>
     <copyright>Dominick Baier, Brock Allen 2014</copyright>
@@ -10,7 +10,7 @@
     <iconUrl>http://1.gravatar.com/blavatar/3b437c799e12e32beb1d8cfda1199ab3?s=32</iconUrl>
 
     <dependencies>
-      <dependency id="Microsoft.Owin" version="2.1.0" />
+      <dependency id="Microsoft.Owin" version="3.0.0" />
     </dependencies>
     
     <id>Thinktecture.IdentityModel.Owin.ResourceAuthorization</id>
