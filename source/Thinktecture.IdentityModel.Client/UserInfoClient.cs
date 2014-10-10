@@ -32,6 +32,14 @@ namespace Thinktecture.IdentityModel.Client
             _client.SetBearerToken(token);
         }
 
+        public TimeSpan Timeout
+        {
+            set
+            {
+                _client.Timeout = value;
+            }
+        }
+
         public async Task<UserInfoResponse> GetAsync()
         {
             var response = await _client.GetAsync("");

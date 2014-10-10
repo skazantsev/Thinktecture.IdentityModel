@@ -66,6 +66,14 @@ namespace Thinktecture.IdentityModel.Client
 			}
 		}
 
+        public TimeSpan Timeout 
+        { 
+            set
+            {
+                _client.Timeout = value;
+            }
+        }
+
 		public string CreateCodeFlowUrl(string clientId, string scope = null, string redirectUri = null, string state = null, Dictionary<string, string> additionalValues = null)
 		{
 			return CreateAuthorizeUrl(
