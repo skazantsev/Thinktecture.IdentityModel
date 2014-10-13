@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -9,15 +9,15 @@ using Xunit;
 
 namespace Owin.ResourceAuthorization.Tests
 {
-    [Trait("Resource Authorization Attribute", "Single action, single resource")]
-    public class ResourceAuthorizeAttributeTests : WebApiTestBase
+    [Trait("Resource Authorization Attribute", "Controller & Action")]
+    public class ResourceAuthorizeAttributeControllerAndActionTests : WebApiTestBase
     {
         private ResourceAuthorizationContext _context;
         private readonly HttpResponseMessage _response;
 
-        public class ProtectedTestsController : ApiController
+        public class ResourceAuthorizeAttributeTestsController : ApiController
         {
-            [HttpGet, Route("api/protected")]
+            [HttpGet, Route("api/default")]
             [ResourceAuthorize("read", "protected")]
             public async Task<HttpResponseMessage> Protected()
             {
@@ -25,7 +25,7 @@ namespace Owin.ResourceAuthorization.Tests
             }
         }
 
-        public ResourceAuthorizeAttributeTests()
+        public ResourceAuthorizeAttributeControllerAndActionTests()
         {
             _context = null;
 
@@ -36,7 +36,7 @@ namespace Owin.ResourceAuthorization.Tests
                 return Task.FromResult(true);
             };
 
-            _response = Client.GetAsync("/api/protected").Result;
+            _response = Client.GetAsync("/api/default").Result;
 
         }
 
@@ -46,16 +46,16 @@ namespace Owin.ResourceAuthorization.Tests
             _response.IsSuccessStatusCode.Should().BeTrue();
         }
 
-        [Fact(DisplayName = "Context contains Action")]
+        [Fact(DisplayName = "Context action method")]
         public void CheckAction()
         {
-            _context.ActionNames().Should().Contain("read");
+            _context.Action.ClaimValue("action").Should().Be("Protected");
         }
 
-        [Fact(DisplayName = "Context contains Resource")]
+        [Fact(DisplayName = "Context contains controller")]
         public void CheckResource()
         {
-            _context.ResourceNames().Should().Contain("protected");
+            _context.Resource.ClaimValue("controller").Should().Be("ResourceAuthorizeAttributeTests");            
         }
     }
 }
