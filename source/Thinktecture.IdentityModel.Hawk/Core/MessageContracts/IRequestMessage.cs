@@ -20,11 +20,21 @@ namespace Thinktecture.IdentityModel.Hawk.Core.MessageContracts
         string Host { get; }
 
         /// <summary>
-        /// X-Forwarded-For header value
+        /// X-Forwarded-Host header value
         /// </summary>
-        string ForwardedFor { get; }
+        string ForwardedHost { get; }
 
-        /// <summary>
+		/// <summary>
+		/// X-Forwarded-Port header value
+		/// </summary>
+		string ForwardedPort { get; }
+
+		/// <summary>
+		/// X-Forwarded-Proto header value
+		/// </summary>
+		string ForwardedProto { get; }
+
+		/// <summary>
         /// Authorization header value
         /// </summary>
         AuthenticationHeaderValue Authorization { get; set; }
