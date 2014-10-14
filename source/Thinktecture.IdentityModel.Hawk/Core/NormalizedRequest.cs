@@ -178,6 +178,11 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
 		private string GetPortFromProto(string proto)
 		{
+			if (String.IsNullOrEmpty(proto))
+			{
+				return null;
+			}
+
 			switch (proto.ToLower())
 			{
 				case HTTP_PROTO:
