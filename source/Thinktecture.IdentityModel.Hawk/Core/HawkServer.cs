@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -110,7 +111,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                         this.result.Artifacts.ApplicationSpecificData = options.NormalizationCallback(response);
 
                     // Sign the response
-                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts, options.HostNameSource)
+                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts, options.HostNameSource, options.PortSource)
                     {
                         IsServerAuthorization = true
                     };

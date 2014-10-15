@@ -27,9 +27,10 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
         private const string HTTP_PORT = "80";
         private const string HTTPS_PORT = "443";
+		private const string HTTP_PROTO = "http";
+		private const string HTTPS_PROTO = "https";
         private const string MATCH_PATTERN_HOSTNAME_OR_IPV4 = @"^(?:(?:\r\n)?\s)*([^:]+)(?::(\d+))?(?:(?:\r\n)?\s)*$";
         private const string MATCH_PATTERN_IPV6 = @"^(?:(?:\r\n)?\s)*(\[[^\]]+\])(?::(\d+))?(?:(?:\r\n)?\s)*$";
-        private const string XFF_HEADER_NAME = "X-Forwarded-For";
 
         private readonly ArtifactsContainer artifacts = null;
 
@@ -40,7 +41,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
         internal NormalizedRequest(IRequestMessage request,
                                         ArtifactsContainer artifacts,
-                                            HostNameSource? hostNameSource = null)
+                                            HostNameSource? hostNameSource = null,
+												PortSource? portSource = null)
         {
             this.artifacts = artifacts;
 
@@ -52,33 +54,62 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             }
             else
             {
-                if (hostNameSource.HasValue) // Case 2: NOT bewit and user has specified the host name source
+				string xForwardedPort = (String.IsNullOrWhiteSpace(request.ForwardedPort)) ? null : request.ForwardedPort;
+				string xForwardedHostHeaderPort = null;
+				string hostHeaderPort = null;
+
+                if (hostNameSource.HasValue) // Case 2a: NOT bewit and user has specified the host name source
                 {
                     switch (hostNameSource.Value)
                     {
-                        case HostNameSource.XForwardedForHeader:
-                            this.hostName = this.GetHostName(request.ForwardedFor, out this.port); break;
+                        case HostNameSource.XForwardedHostHeader:
+                            this.hostName = this.GetHostName(request.ForwardedHost, out xForwardedHostHeaderPort); break;
                         case HostNameSource.HostHeader:
-                            this.hostName = this.GetHostName(request.Host, out this.port); break;
+                            this.hostName = this.GetHostName(request.Host, out hostHeaderPort); break;
                         case HostNameSource.RequestUri:
-                                this.hostName = request.Uri.Host; break;
+                            this.hostName = request.Uri.Host; break;
                     }
                 }
 
+				if (portSource.HasValue) // Case 2b: NOT bewit and user has specified the port source
+				{
+					switch (portSource.Value)
+					{
+						case PortSource.XForwardedPortHeader:
+							this.port = xForwardedPort; break;
+						case PortSource.XForwardedProtoHeader:
+							this.port = GetPortFromProto(request.ForwardedProto); break;
+						case PortSource.XForwardedHostHeader:
+							this.port = xForwardedHostHeaderPort; break;
+						case PortSource.HostHeader:
+							this.port = hostHeaderPort; break;
+						case PortSource.RequestUri:
+							this.port = request.Uri.Port.ToString(); break;
+					}
+				}
+
                 if (String.IsNullOrWhiteSpace(this.hostName))
                 {
-                    // Case 3: NOT bewit and user has specified the host name source but unable to determine host name.
-                    // Case 4: NOT bewit and user has NOT specified the host name source.
-                    // For both cases, try X-Forwarded-For header first, then Host header, and finally request URI.
+                    // Case 3a: NOT bewit and user has specified the host name source but unable to determine host name.
+                    // Case 4a: NOT bewit and user has NOT specified the host name source.
+                    // For both cases, try X-Forwarded-Host header first, then Host header, and finally request URI.
 
-                    this.hostName = this.GetHostName(request.ForwardedFor, out this.port) ??
-                                        this.GetHostName(request.Host, out this.port) ??
+                    this.hostName = this.GetHostName(request.ForwardedHost, out xForwardedHostHeaderPort) ??
+                                        this.GetHostName(request.Host, out hostHeaderPort) ??
                                             request.Uri.Host;
                 }
-            }
 
-            if (String.IsNullOrWhiteSpace(this.port))
-                this.port = request.Uri.Port.ToString();
+				if (String.IsNullOrWhiteSpace(this.port))
+				{
+					// Case 3b: NOT bewit and user has specified the port source but unable to determine port.
+					// Case 4b: NOT bewit and user has NOT specified the port source.
+					// For both cases, try X-Forwarded-Port header first, then port based on X-Forwarded-Proto header,
+					// then port from X-Forwarded-Host header, then port from Host header, and finally request URI port.
+
+					this.port = xForwardedPort ?? GetPortFromProto(request.ForwardedProto) ??
+									xForwardedHostHeaderPort ?? hostHeaderPort ?? request.Uri.Port.ToString();
+				}
+            }
 
             this.method = request.Method.Method.ToUpper();
             this.path = request.Uri.PathAndQuery;
@@ -144,6 +175,24 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             port = null;
             return null;
         }
+
+		private string GetPortFromProto(string proto)
+		{
+			if (String.IsNullOrEmpty(proto))
+			{
+				return null;
+			}
+
+			switch (proto.ToLower())
+			{
+				case HTTP_PROTO:
+					return HTTP_PORT;
+				case HTTPS_PROTO:
+					return HTTPS_PORT;
+				default:
+					return null;
+			}
+		}
 
         private string GetPreamble()
         {

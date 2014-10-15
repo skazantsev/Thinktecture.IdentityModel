@@ -55,9 +55,16 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
         /// <summary>
         /// The request part used to determine the host name for creating normalized request.
-        /// If not specified, X-Forwarded-For header is tried first, then the Host request header,
+        /// If not specified, X-Forwarded-Host header is tried first, then the Host request header,
         /// and finally request URI.
         /// </summary>
         public HostNameSource? HostNameSource { get; set; }
+
+		/// <summary>
+		/// The request part used to determine the port for creating normalized request.
+		/// If not specified, X-Forwarded-Port header is tried first, then port based on X-Forwarded-Proto header,
+		/// then port from X-Forwarded-Host header, then port from Host header, and finally request URI port.
+		/// </summary>
+		public PortSource? PortSource { get; set; }
     }
 }
