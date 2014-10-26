@@ -16,7 +16,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         /// <summary>
         /// Shared symmetric key that is exchanged out-of-band between the service and the client.
         /// </summary>
-        public string Key { get; set; }
+        public byte[] Key { get; set; }
 
         /// <summary>
         /// Owner of the credential. If the owner is a human user, user name can be stored here.
@@ -39,7 +39,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             get
             {
                 bool isIdValid = !String.IsNullOrWhiteSpace(this.Id);
-                bool isKeyValid = !String.IsNullOrWhiteSpace(this.Key);
+                bool isKeyValid = this.Key != null;
                 bool isAlogorithmValid = Enum.IsDefined(typeof(SupportedAlgorithms), this.Algorithm);
 
                 return isIdValid && isKeyValid && isAlogorithmValid;
