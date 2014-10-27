@@ -107,9 +107,9 @@
     <Compile Include="WebApi\WebApiResponseMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thinktecture.IdentityModel.Core\Thinktecture.IdentityModel.Core.csproj">
+    <ProjectReference Include="..\Thinktecture.IdentityModel.Core\Core.csproj">
       <Project>{7fad936f-3f5c-4d31-b733-0b76ae4d1034}</Project>
-      <Name>Thinktecture.IdentityModel.Core</Name>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,27 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Core", "Thinktecture.IdentityModel.Core\Thinktecture.IdentityModel.Core.csproj", "{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Thinktecture.IdentityModel.Core\Core.csproj", "{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Client", "Thinktecture.IdentityModel.Client\Thinktecture.IdentityModel.Client.csproj", "{A9CC834E-BB74-4BBA-BA8F-3297011BAA0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Thinktecture.IdentityModel.Client\Client.csproj", "{A9CC834E-BB74-4BBA-BA8F-3297011BAA0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.EmbeddedSts", "Thinktecture.IdentityModel.EmbeddedSts\Thinktecture.IdentityModel.EmbeddedSts.csproj", "{408440E6-E84F-4ECD-AEBA-F3D963EAC166}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedSts", "Thinktecture.IdentityModel.EmbeddedSts\EmbeddedSts.csproj", "{408440E6-E84F-4ECD-AEBA-F3D963EAC166}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Wcf", "Thinktecture.IdentityModel.Wcf\Thinktecture.IdentityModel.Wcf.csproj", "{C08466EF-94CE-4FEB-AEE3-330DC51B11EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wcf", "Thinktecture.IdentityModel.Wcf\Wcf.csproj", "{C08466EF-94CE-4FEB-AEE3-330DC51B11EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Swt", "Thinktecture.IdentityModel.Swt\Thinktecture.IdentityModel.Swt.csproj", "{75CC1E99-3401-4E71-855F-842C80BA3B3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swt", "Thinktecture.IdentityModel.Swt\Swt.csproj", "{75CC1E99-3401-4E71-855F-842C80BA3B3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Owin", "Thinktecture.IdentityModel.Owin\Thinktecture.IdentityModel.Owin.csproj", "{2AFD23F2-D3DF-4A25-A851-817E736318FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.Hawk", "Thinktecture.IdentityModel.Hawk\Thinktecture.IdentityModel.Hawk.csproj", "{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hawk", "Thinktecture.IdentityModel.Hawk\Hawk.csproj", "{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.WebApi", "Thinktecture.IdentityModel.WebApi\Thinktecture.IdentityModel.WebApi.csproj", "{986B606C-7163-4621-A8BD-F4705DCC8A90}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "Thinktecture.IdentityModel.WebApi\WebApi.csproj", "{986B606C-7163-4621-A8BD-F4705DCC8A90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.SystemWeb", "Thinktecture.IdentityModel.SystemWeb\Thinktecture.IdentityModel.SystemWeb.csproj", "{976EBA28-8B93-4BB6-A7A5-64350FCC1824}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemWeb", "Thinktecture.IdentityModel.SystemWeb\SystemWeb.csproj", "{976EBA28-8B93-4BB6-A7A5-64350FCC1824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thinktecture.IdentityModel.WebApi.AuthNHandler", "Thinktecture.IdentityModel.WebApi.AuthNHandler\Thinktecture.IdentityModel.WebApi.AuthNHandler.csproj", "{4FBEE49E-C5CB-4CAE-A770-E6B2459AAB86}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.AuthNHandler", "Thinktecture.IdentityModel.WebApi.AuthNHandler\WebApi.AuthNHandler.csproj", "{4FBEE49E-C5CB-4CAE-A770-E6B2459AAB86}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Owin", "Owin", "{E292B38C-341A-4274-84B1-C35D1E43F407}"
 EndProject
