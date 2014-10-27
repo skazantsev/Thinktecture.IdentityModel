@@ -38,7 +38,7 @@ namespace Thinktecture.IdentityModel.Hawk.Samples.WebApi.OwinHost
                     Id = "dh37fgj492je",
                     Algorithm = SupportedAlgorithms.SHA256,
                     User = "Steve",
-                    Key = "werxhqb98rpaxn39848xrunpaw3489ruxnpa98w4rxn"
+                    Key = Convert.FromBase64String("wBgvhp1lZTr4Tb6K6+5OQa1bL9fxK7j8wBsepjqVNiQ=")
                 }
             };
 

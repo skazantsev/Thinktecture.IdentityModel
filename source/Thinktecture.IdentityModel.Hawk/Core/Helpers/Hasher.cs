@@ -51,17 +51,17 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         /// <summary>
         /// Computes the keyed hash value (HMAC) for the specified data.
         /// </summary>
-        internal byte[] ComputeHmac(byte[] data, string key)
+        internal byte[] ComputeHmac(byte[] data, byte[] key)
         {
             if (data == null || data.Length == 0)
                 throw new ArgumentException("Invalid data to hash");
 
-            if(String.IsNullOrWhiteSpace(key))
+            if(key == null)
                 throw new ArgumentException("Invalid key");
 
             using (var algorithm = KeyedHashAlgorithm.Create("hmac" + this.algorithmName))
             {
-                algorithm.Key = key.ToBytesFromUtf8();
+                algorithm.Key = key;
                 return algorithm.ComputeHash(data);
             }
         }
@@ -70,7 +70,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         /// Returns true, if the computed HMAC for the specified data matches the specified HMAC.
         /// Matching is done constant-time to prevent time-based analysis.
         /// </summary>
-        internal bool IsValidMac(byte[] data, string key, byte[] incomingMac)
+        internal bool IsValidMac(byte[] data, byte[] key, byte[] incomingMac)
         {
             byte[] computedMac = this.ComputeHmac(data, key);
 
