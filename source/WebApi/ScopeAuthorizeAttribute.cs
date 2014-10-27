@@ -13,7 +13,7 @@ using System.Web.Http.Controllers;
 
 namespace Thinktecture.IdentityModel.WebApi
 {
-    [Obsolete]
+    [Obsolete("We recommend using the version based on OWIN middleware instead")]
     public class ScopeAuthorizeAttribute : AuthorizeAttribute
     {
         string[] _scopes;

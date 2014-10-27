@@ -95,6 +95,12 @@ namespace Thinktecture.IdentityModel.SystemWeb
 			_handler.Delete(name, context ?? HttpContext.Current);
         }
 
+        public static void Delete(string name, string domain, string path,
+            HttpContext context = null)
+        {
+            _handler.Delete(name, path, domain, context ?? HttpContext.Current);
+        }
+
         protected virtual byte[] EncodeCookieValue(string value)
         {
             var bytes = Encoding.UTF8.GetBytes(value);
