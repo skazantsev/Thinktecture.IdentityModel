@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Thinktecture.IdentityModel.WebApi
 {
+    [Obsolete]
     public class RequireHttpsHandler : DelegatingHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(

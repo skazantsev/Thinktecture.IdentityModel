@@ -3,12 +3,14 @@
  * see LICENSE
  */
 
+using System;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 
 namespace Thinktecture.IdentityModel.WebApi
 {
+    [Obsolete]
     public class ResourceActionAuthorizeAttribute : AuthorizeAttribute
     {
         private string _action;

@@ -4,13 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C08466EF-94CE-4FEB-AEE3-330DC51B11EA}</ProjectGuid>
+    <ProjectGuid>{75CC1E99-3401-4E71-855F-842C80BA3B3D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Thinktecture.IdentityModel.Wcf</RootNamespace>
-    <AssemblyName>Thinktecture.IdentityModel.Wcf</AssemblyName>
+    <RootNamespace>Thinktecture.IdentityModel.Swt</RootNamespace>
+    <AssemblyName>Thinktecture.IdentityModel.Swt</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,8 +35,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IdentityModel" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,19 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bindings\CertificateWSTrustBindings.cs" />
-    <Compile Include="Bindings\IssuedTokenWSTrustBinding.cs" />
-    <Compile Include="Bindings\KerberosWSTrustBinding.cs" />
-    <Compile Include="Bindings\UserNameWSTrustBinding.cs" />
-    <Compile Include="Bindings\WindowsWSTrustBinding.cs" />
-    <Compile Include="Bindings\WSTrustBindingBase.cs" />
-    <Compile Include="Extensions\RequestSecurityTokenResponseExtensions.cs" />
-    <Compile Include="Extensions\X509CertificateEndpointIdentity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WSTrustClient.cs" />
+    <Compile Include="SimpleWebToken.cs" />
+    <Compile Include="SimpleWebTokenHandler.cs" />
+    <Compile Include="SwtConstants.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Thinktecture.IdentityModel.Core\Core.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{7fad936f-3f5c-4d31-b733-0b76ae4d1034}</Project>
       <Name>Core</Name>
     </ProjectReference>

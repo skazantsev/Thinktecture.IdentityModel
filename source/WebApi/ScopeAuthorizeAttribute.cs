@@ -13,6 +13,7 @@ using System.Web.Http.Controllers;
 
 namespace Thinktecture.IdentityModel.WebApi
 {
+    [Obsolete]
     public class ScopeAuthorizeAttribute : AuthorizeAttribute
     {
         string[] _scopes;
