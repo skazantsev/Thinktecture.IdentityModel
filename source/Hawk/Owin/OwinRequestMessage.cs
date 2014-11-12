@@ -41,45 +41,6 @@ namespace Thinktecture.IdentityModel.Hawk.Owin
             }
         }
 
-        public string ForwardedHost
-        {
-            get
-            {
-                string xfhost = this.request.Headers.Get(HawkConstants.XfhostHeaderName);
-
-                if (!String.IsNullOrWhiteSpace(xfhost))
-                    xfhost = xfhost.Split(',')[0].Trim();
-
-                return xfhost;
-            }
-        }
-		public string ForwardedPort
-		{
-			get
-			{
-				string xfport = this.request.Headers.Get(HawkConstants.XfportHeaderName);
-
-				if (!String.IsNullOrWhiteSpace(xfport))
-					xfport = xfport.Split(',')[0].Trim();
-
-				return xfport;
-			}
-		}
-
-		public string ForwardedProto
-		{
-			get
-			{
-				string xfproto = this.request.Headers.Get(HawkConstants.XfprotoHeaderName);
-
-				if (!String.IsNullOrWhiteSpace(xfproto))
-					xfproto = xfproto.Split(',')[0].Trim();
-
-				return xfproto;
-			}
-		}
-
-
         public AuthenticationHeaderValue Authorization
         {
             get
@@ -144,6 +105,14 @@ namespace Thinktecture.IdentityModel.Hawk.Owin
                 this.request.QueryString = value == null ?
                                                 Microsoft.Owin.QueryString.Empty :
                                                     new Microsoft.Owin.QueryString(value);
+            }
+        }
+
+        public string Scheme
+        {
+            get
+            {
+                return this.request.Scheme;
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -32,7 +33,14 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                         credential = options.CredentialsCallback(artifacts.Id);
                         if (credential != null && credential.IsValid)
                         {
-                            var normalizedRequest = new NormalizedRequest(request, artifacts, options.HostNameSource);
+                            HawkEventSource.Log.Debug(
+                                String.Format("Algorithm={0} Key={1} ID={2}",
+                                                    credential.Algorithm.ToString(),
+                                                    Convert.ToBase64String(credential.Key),
+                                                    credential.Id));
+
+                            Tuple<string, string> hostAndPort = options.DetermineHostDetailsCallback(request);
+                            var normalizedRequest = new NormalizedRequest(request, artifacts, hostAndPort.Item1, hostAndPort.Item2);
                             var crypto = new Cryptographer(normalizedRequest, artifacts, credential);
 
                             // Request body is needed only when payload hash is present in the request
@@ -85,8 +93,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             bool isFresh = (age <= shelfLife);
 
             if (!isFresh)
-                Tracing.Information(
-                            String.Format("Stale Timestamp: Age {0} is more than shelf life of {1}", age, shelfLife));
+                HawkEventSource.Log.StaleTimestamp(age.ToString(), shelfLife.ToString());
 
             return isFresh;
         }

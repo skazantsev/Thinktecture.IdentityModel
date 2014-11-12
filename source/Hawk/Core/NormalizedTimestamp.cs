@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -43,7 +44,11 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             builder.AppendNewLine(PREAMBLE)
                 .AppendNewLine(fresh.ToString());
 
-            return builder.ToString();
+            string normalizedTimestamp = builder.ToString();
+
+            HawkEventSource.Log.NormalizedTimestamp(normalizedTimestamp);
+
+            return normalizedTimestamp;
         }
 
         /// <summary>

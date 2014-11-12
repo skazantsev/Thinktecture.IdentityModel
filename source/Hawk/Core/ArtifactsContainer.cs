@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -83,6 +84,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         /// </summary>
         internal static bool TryParse(string headerParameter, out ArtifactsContainer container)
         {
+            HawkEventSource.Log.Debug("Hawk Authorization: " + headerParameter);
+
             ArtifactsContainer result = new ArtifactsContainer();
 
             var keysToBeProcessed = new HashSet<string>() { ID, TS, NONCE, EXT, MAC, HASH, TSM };
@@ -134,7 +137,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 return true;
             }
 
-            Tracing.Error("Unable to parse the artifacts.");
+            HawkEventSource.Log.UnparsedArtifact(replacedString);
 
             container = null;
             return false;

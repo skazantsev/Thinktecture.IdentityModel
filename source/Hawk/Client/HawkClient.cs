@@ -7,6 +7,7 @@ using Thinktecture.IdentityModel.Hawk.Core;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Client
 {
@@ -71,6 +72,11 @@ namespace Thinktecture.IdentityModel.Hawk.Client
         /// <returns></returns>
         public async Task CreateClientAuthorizationAsync(IRequestMessage request)
         {
+            HawkEventSource.Log.Debug(
+                String.Format("HawkClient.CreateClientAuthorizationAsync for {0} {1}",
+                                request.Method.ToString(),
+                                request.Uri.ToString()));
+
             await CreateClientAuthorizationInternalAsync(request, DateTime.UtcNow);
         }
 
@@ -80,6 +86,11 @@ namespace Thinktecture.IdentityModel.Hawk.Client
         /// </summary>
         public string CreateBewit(IRequestMessage request, int lifeSeconds)
         {
+            HawkEventSource.Log.Debug(
+                String.Format("HawkClient.CreateBewit for {0} {1}",
+                                request.Method.ToString(),
+                                request.Uri.ToString()));
+
             return CreateBewitInternal(request, DateTime.UtcNow, lifeSeconds);
         }
 
@@ -122,7 +133,7 @@ namespace Thinktecture.IdentityModel.Hawk.Client
             if (options.NormalizationCallback != null)
                 this.artifacts.ApplicationSpecificData = options.NormalizationCallback(request);
 
-            var normalizedRequest = new NormalizedRequest(request, this.artifacts, options.HostNameSource);
+            var normalizedRequest = new NormalizedRequest(request, this.artifacts);
             this.crypto = new Cryptographer(normalizedRequest, this.artifacts, credential);
 
             // Sign the request
@@ -210,7 +221,7 @@ namespace Thinktecture.IdentityModel.Hawk.Client
                     lock (myPrecious)
                         HawkClient.CompensatorySeconds = (int)(timestampArtifacts.Timestamp - DateTime.UtcNow.ToUnixTime());
 
-                    Tracing.Information("HawkClient.CompensatorySeconds set to " + HawkClient.CompensatorySeconds);
+                    HawkEventSource.Log.TimestampMismatch(HawkClient.CompensatorySeconds);
                 }
             }
 

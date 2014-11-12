@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Thinktecture.IdentityModel.Hawk.Core;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.WebApi
 {
@@ -32,8 +33,6 @@ namespace Thinktecture.IdentityModel.Hawk.WebApi
         protected async override Task<HttpResponseMessage> SendAsync(
                                         HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            Tracing.Start("HawkAuthenticationHandler");
-
             try
             {
                 HawkServer server = new HawkServer(new WebApiRequestMessage(request), options);
@@ -43,7 +42,8 @@ namespace Thinktecture.IdentityModel.Hawk.WebApi
                 if (principal != null && principal.Identity.IsAuthenticated)
                 {
                     request.GetRequestContext().Principal = principal;
-                    Tracing.Verbose("Authentication Successful and principal set for " + principal.Identity.Name);
+
+                    HawkEventSource.Log.Debug("Authentication Successful and principal set for " + principal.Identity.Name);
                 }
 
                 var response = await base.SendAsync(request, cancellationToken);
@@ -54,9 +54,9 @@ namespace Thinktecture.IdentityModel.Hawk.WebApi
 
                 return response;
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                Tracing.Error("Exception: " + ex.ToString());
+                HawkEventSource.Log.Exception(exception.ToString());
 
                 var response = request.CreateResponse(HttpStatusCode.Unauthorized);
                 response.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue(HawkConstants.Scheme));

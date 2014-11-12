@@ -46,54 +46,6 @@ namespace Thinktecture.IdentityModel.Hawk.WebApi
             }
         }
 
-        public string ForwardedHost
-        {
-            get
-            {
-                string xfhost = String.Empty;
-
-                if (this.request.Headers.Contains(HawkConstants.XfhostHeaderName))
-                    xfhost = this.request.Headers.GetValues(HawkConstants.XfhostHeaderName).FirstOrDefault();
-
-                if (!String.IsNullOrWhiteSpace(xfhost))
-                    xfhost = xfhost.Split(',')[0].Trim();
-
-                return xfhost;
-            }
-        }
-
-		public string ForwardedPort
-		{
-			get
-			{
-				string xfport = String.Empty;
-
-				if (this.request.Headers.Contains(HawkConstants.XfportHeaderName))
-					xfport = this.request.Headers.GetValues(HawkConstants.XfportHeaderName).FirstOrDefault();
-
-				if (!String.IsNullOrWhiteSpace(xfport))
-					xfport = xfport.Split(',')[0].Trim();
-
-				return xfport;
-			}
-		}
-
-		public string ForwardedProto
-		{
-			get
-			{
-				string xfproto = String.Empty;
-
-				if (this.request.Headers.Contains(HawkConstants.XfprotoHeaderName))
-					xfproto = this.request.Headers.GetValues(HawkConstants.XfprotoHeaderName).FirstOrDefault();
-
-				if (!String.IsNullOrWhiteSpace(xfproto))
-					xfproto = xfproto.Split(',')[0].Trim();
-
-				return xfproto;
-			}
-		}
-
 		public AuthenticationHeaderValue Authorization
         {
             get
@@ -130,6 +82,14 @@ namespace Thinktecture.IdentityModel.Hawk.WebApi
                 builder.Query = value ?? String.Empty;
 
                 this.request.RequestUri = builder.Uri;
+            }
+        }
+
+        public string Scheme
+        {
+            get
+            {
+                return this.request.RequestUri.Scheme;
             }
         }
     }

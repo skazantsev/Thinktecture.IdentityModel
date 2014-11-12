@@ -19,21 +19,6 @@ namespace Thinktecture.IdentityModel.Hawk.Core.MessageContracts
         /// </summary>
         string Host { get; }
 
-        /// <summary>
-        /// X-Forwarded-Host header value
-        /// </summary>
-        string ForwardedHost { get; }
-
-		/// <summary>
-		/// X-Forwarded-Port header value
-		/// </summary>
-		string ForwardedPort { get; }
-
-		/// <summary>
-		/// X-Forwarded-Proto header value
-		/// </summary>
-		string ForwardedProto { get; }
-
 		/// <summary>
         /// Authorization header value
         /// </summary>
@@ -53,5 +38,10 @@ namespace Thinktecture.IdentityModel.Hawk.Core.MessageContracts
         /// HTTP Method
         /// </summary>
         HttpMethod Method { get; }
+
+        /// <summary>
+        /// HTTP Request Scheme
+        /// </summary>
+        string Scheme { get; }
     }
 }
