@@ -2,6 +2,7 @@
 using System.Text;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -46,8 +47,6 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 var payload = new NormalizedPayload(body, contentType);
                 byte[] data = payload.ToBytes();
 
-                Tracing.Verbose("Normalized payload: " + Encoding.UTF8.GetString(data));
-
                 responsePayloadHash = hasher.ComputeHash(data);
             }
 
@@ -55,8 +54,6 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
             byte[] normalizedRequest = this.normalizedRequest.ToBytes();
             artifacts.Mac = hasher.ComputeHmac(normalizedRequest, credential.Key);
-
-            Tracing.Verbose("Normalized request: " + Encoding.UTF8.GetString(normalizedRequest));
         }
 
         private bool IsMacValid(bool isServerAuthorization = false)
@@ -69,15 +66,19 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             bool isMacValid = this.hasher.IsValidMac(data, credential.Key, artifacts.Mac);
 
             if (!isMacValid)
-                Tracing.Information(
-                    String.Format("Invalid Mac {0} for data {1}", artifacts.Mac.ToBase64String(),
-                                                                            Encoding.UTF8.GetString(data)));
+                HawkEventSource.Log.Debug(
+                    String.Format("Invalid Mac {0} for data {1}",
+                                        artifacts.Mac.ToBase64String(), Encoding.UTF8.GetString(data)));
             return isMacValid;
         }
 
         private bool IsHashNotPresent()
         {
-            return artifacts.PayloadHash == null || artifacts.PayloadHash.Length == 0;
+            bool isHashAbsent = artifacts.PayloadHash == null || artifacts.PayloadHash.Length == 0;
+
+            HawkEventSource.Log.Debug(isHashAbsent ? "Payload Hash absent" : "Payload Hash present");
+            
+            return isHashAbsent;
         }
 
         private bool IsHashValid(string body, string contentType)
@@ -88,9 +89,9 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             bool isHashValid = this.hasher.IsValidHash(data, artifacts.PayloadHash);
 
             if (!isHashValid)
-                Tracing.Information(
-                    String.Format("Invalid payload hash {0} for data {1}", artifacts.PayloadHash.ToBase64String(),
-                                                                            Encoding.UTF8.GetString(data)));
+                HawkEventSource.Log.Debug(
+                    String.Format("Invalid payload hash {0} for data {1}",
+                                    artifacts.PayloadHash.ToBase64String(), Encoding.UTF8.GetString(data)));
 
             return isHashValid;
         }

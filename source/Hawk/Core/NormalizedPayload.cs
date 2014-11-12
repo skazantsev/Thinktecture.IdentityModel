@@ -2,6 +2,7 @@
 using System.Text;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -38,8 +39,14 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                     .AppendNewLine(contentType == null ? String.Empty : contentType.ToLower())
                     .AppendNewLine(this.body);
 
-                return builder.ToString().ToBytesFromUtf8();
+                string normalizedPayload = builder.ToString();
+
+                HawkEventSource.Log.NormalizedBody(normalizedPayload);
+
+                return normalizedPayload.ToBytesFromUtf8();
             }
+
+            HawkEventSource.Log.NormalizedBody("null");
 
             return null;
         }

@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -20,7 +22,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core
 
         private ulong now = 0;
         private AuthenticationResult result = null;
-        private bool isBewitRequest = false;
+
+        internal bool IsBewitRequest { get; set; }
 
         /// <summary>
         /// Authenticates the incoming request based on the Authorize request header or bewit query string parameter
@@ -44,15 +47,21 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         /// </summary>
         public async Task<ClaimsPrincipal> AuthenticateAsync()
         {
+            HawkEventSource.Log.Debug(
+                String.Format("Begin HawkServer.AuthenticateAsync for {0} {1}",
+                                request.Method.ToString(),
+                                request.Uri.ToString()));
+
+            var principal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim> { new Claim(ClaimTypes.Name, String.Empty) }));
+
             string bewit;
             bool isBewit = Bewit.TryGetBewit(this.request, out bewit);
-
-            if (isBewit)
-                Tracing.Information("Bewit Found");
 
             this.result = isBewit ?
                                 Bewit.Authenticate(bewit, now, request, options) :
                                     await HawkSchemeHeader.AuthenticateAsync(now, request, options);
+
+            HawkEventSource.Log.Debug("Authentication Successful");
 
             if (result.IsAuthentic)
             {
@@ -65,20 +74,22 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 if (isAppSpecificDataVerified)
                 {
                     // Set the flag so that Server-Authorization header is not sent for bewit requests.
-                    this.isBewitRequest = isBewit;
+                    this.IsBewitRequest = isBewit;
 
                     var idClaim = new Claim(ClaimTypes.NameIdentifier, result.Credential.Id);
                     var nameClaim = new Claim(ClaimTypes.Name, result.Credential.User);
 
                     var identity = new ClaimsIdentity(new[] { idClaim, nameClaim }, HawkConstants.Scheme);
 
-                    return new ClaimsPrincipal(identity);
+                    principal = new ClaimsPrincipal(identity);
                 }
                 else
-                    Tracing.Information("Invalid Application Specific Data, though authentication is successful.");
+                    HawkEventSource.Log.Debug("Invalid Application Specific Data, though authentication is successful");
             }
 
-            return Principal.Anonymous;
+            HawkEventSource.Log.Debug("End HawkServer.AuthenticateAsync");
+
+            return principal;
         }
 
         /// <summary>
@@ -102,7 +113,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 // (3) The server is configured to not send the header.
                 bool createHeader = this.result != null
                                         && this.result.IsAuthentic
-                                            && (!this.isBewitRequest)
+                                            && (!this.IsBewitRequest)
                                                 && options.EnableServerAuthorization;
 
                 if (createHeader)
@@ -111,7 +122,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                         this.result.Artifacts.ApplicationSpecificData = options.NormalizationCallback(response);
 
                     // Sign the response
-                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts, options.HostNameSource, options.PortSource)
+                    Tuple<string, string> hostAndPort = options.DetermineHostDetailsCallback(request);
+                    var normalizedRequest = new NormalizedRequest(request, this.result.Artifacts, hostAndPort.Item1, hostAndPort.Item2)
                     {
                         IsServerAuthorization = true
                     };

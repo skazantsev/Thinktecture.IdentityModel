@@ -3,7 +3,10 @@ using System.Net.Http;
 using System.Security;
 using System.Threading;
 using System.Threading.Tasks;
+using Thinktecture.IdentityModel.Hawk.Etw;
+using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.WebApi;
+using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 
 namespace Thinktecture.IdentityModel.Hawk.Client
 {
@@ -34,8 +37,15 @@ namespace Thinktecture.IdentityModel.Hawk.Client
             var response = await base.SendAsync(request, cancellationToken);
             var responseMessage = new WebApiResponseMessage(response);
 
+            HawkEventSource.Log.Debug(String.Format("Response received with status of {0}", (int)responseMessage.StatusCode));
+
             if (!await client.AuthenticateAsync(responseMessage))
+            {
+                string header = responseMessage.Headers.FirstOrDefault(HawkConstants.ServerAuthorizationHeaderName);
+                HawkEventSource.Log.ServerResponse((int)responseMessage.StatusCode, await responseMessage.ReadBodyAsStringAsync(), header ?? String.Empty);
+
                 throw new SecurityException("Invalid Mac and/or hash. Response possibly tampered.");
+            }
 
             return response;
         }

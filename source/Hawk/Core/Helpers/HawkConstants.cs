@@ -18,15 +18,6 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         /// <summary>"WWW-Authenticate"</summary>
         public const string WwwAuthenticateHeaderName = "WWW-Authenticate";
 
-        /// <summary>X-Forwarded-Host</summary>
-        public const string XfhostHeaderName = "X-Forwarded-Host";
-
-		/// <summary>X-Forwarded-Host</summary>
-		public const string XfportHeaderName = "X-Forwarded-Port";
-
-		/// <summary>X-Forwarded-Host</summary>
-		public const string XfprotoHeaderName = "X-Forwarded-Proto";
-
 		/// <summary>"Content-Type"</summary>
         public const string ContentTypeHeaderName = "Content-Type";
 
@@ -45,27 +36,4 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         SHA1,
         SHA256
     }
-
-    /// <summary>
-    /// The request part used to determine host name for creating normalized request.
-    /// </summary>
-    public enum HostNameSource
-    {
-        XForwardedHostHeader,
-        HostHeader,
-        RequestUri
-    }
-
-	/// <summary>
-	/// The request part used to determine port for creating normalized request.
-	/// </summary>
-	public enum PortSource
-	{
-		XForwardedPortHeader,
-		XForwardedProtoHeader,
-		XForwardedHostHeader,
-		HostHeader,
-		RequestUri
-	}
-
 }

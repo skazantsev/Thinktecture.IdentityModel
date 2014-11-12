@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
+using Thinktecture.IdentityModel.Hawk.Etw;
 
 namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
 {
@@ -28,7 +29,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         /// </summary>
         internal byte[] ComputeHash(byte[] data)
         {
-            if(data == null || data.Length == 0)
+            if (data == null || data.Length == 0)
                 throw new ArgumentException("Invalid data to hash");
 
             using (var hashAlgorithm = HashAlgorithm.Create(this.algorithmName))
@@ -43,9 +44,9 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
         /// </summary>
         internal bool IsValidHash(byte[] data, byte[] incomingHash)
         {
-            byte[] ComputedHash = this.ComputeHash(data);
+            byte[] computedHash = this.ComputeHash(data);
 
-            return ComputedHash.IsConstantTimeEqualTo(incomingHash);
+            return computedHash.IsConstantTimeEqualTo(incomingHash);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
             if (data == null || data.Length == 0)
                 throw new ArgumentException("Invalid data to hash");
 
-            if(key == null)
+            if (key == null)
                 throw new ArgumentException("Invalid key");
 
             using (var algorithm = KeyedHashAlgorithm.Create("hmac" + this.algorithmName))
