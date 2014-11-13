@@ -6,6 +6,7 @@ using Thinktecture.IdentityModel.Hawk.Core.Helpers;
 using Thinktecture.IdentityModel.Hawk.Core.MessageContracts;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
 using Thinktecture.IdentityModel.Hawk.Etw;
+using System.Runtime.Caching;
 
 namespace Thinktecture.IdentityModel.Hawk.Core
 {
@@ -19,6 +20,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             this.ClockSkewSeconds = 60;
             this.EnableServerAuthorization = true;
             this.DetermineHostDetailsCallback = DefaultBehavior.DetermineHostDetails;
+            this.DetermineNonceReplayCallback = DefaultBehavior.GetLastUsedId;
+            this.StoreNonceCallback = DefaultBehavior.StoreNonce;
         }
 
         /// <summary>
@@ -64,8 +67,27 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         /// </summary>
         public Func<IRequestMessage, Tuple<string, string>> DetermineHostDetailsCallback { get; set; }
 
+        /// <summary>
+        /// Action delegate that stores the nonce from the request for a specific period to 
+        /// detect replay of old requests, against the identifier.
+        /// </summary>
+        public Action<string, string, int> StoreNonceCallback { get; set; }
+
+        /// <summary>
+        /// Func delegate that returns the identifier used with an earlier request,
+        /// if a nonce was replayed. Returns null, if nonce is fresh.
+        /// By default, the nonce values from the requests are stored in the memory in-proc.
+        /// If you use multiple servers or processes for load balancing and if the replay
+        /// request goes to a server that did not service the request before, nonce will not
+        ///  be rejected. In such cases, store the nonce as part of StoreNonceCallback into a
+        ///  store common to all instances and check the nonce as part of this callback.
+        /// </summary>
+        public Func<string, string> DetermineNonceReplayCallback { get; set; }
+
         public class DefaultBehavior
         {
+            static readonly object cacheLock = new object();
+
             internal static Tuple<string, string> DetermineHostDetails(IRequestMessage request)
             {
                 string host = request.Headers.FirstOrDefault("X-Forwarded-Host");
@@ -120,6 +142,24 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 }
 
                 return new Tuple<string, string>(hostName, port);
+            }
+
+            internal static void StoreNonce(string nonce, string id, int lifeSeconds)
+            {
+                var evictionPolicy = new CacheItemPolicy()
+                {
+                    AbsoluteExpiration = new DateTimeOffset(DateTime.Now.AddSeconds(lifeSeconds))
+                };
+
+                lock (cacheLock)
+                {
+                    MemoryCache.Default.Set(nonce, id, evictionPolicy);
+                }
+            }
+
+            internal static string GetLastUsedId(string nonce)
+            {
+                return MemoryCache.Default.Get(nonce) as string;
             }
         }
     }

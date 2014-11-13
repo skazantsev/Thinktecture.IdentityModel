@@ -76,6 +76,12 @@ namespace Thinktecture.IdentityModel.Hawk.Etw
             if (this.IsEnabled()) this.WriteEvent(9, StatusCode, Body, AuthorizationHeader);
         }
 
+        [Event(10, Keywords = Keywords.Common, Level = EventLevel.Warning)]
+        public void NonceReplay(string Nonce, string LastUsedBy)
+        {
+            if (this.IsEnabled()) this.WriteEvent(10, Nonce, LastUsedBy);
+        }
+
         public class Keywords
         {
             public const EventKeywords Common = (EventKeywords)1;

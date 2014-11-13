@@ -30,47 +30,60 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                 {
                     if (artifacts != null && artifacts.AreClientArtifactsValid)
                     {
-                        credential = options.CredentialsCallback(artifacts.Id);
-                        if (credential != null && credential.IsValid)
+                        string lastUsedBy = options.DetermineNonceReplayCallback(artifacts.Nonce);
+
+                        if (String.IsNullOrEmpty(lastUsedBy)) // Not an old nonce, and hence not a replay.
                         {
-                            HawkEventSource.Log.Debug(
-                                String.Format("Algorithm={0} Key={1} ID={2}",
-                                                    credential.Algorithm.ToString(),
-                                                    Convert.ToBase64String(credential.Key),
-                                                    credential.Id));
-
-                            Tuple<string, string> hostAndPort = options.DetermineHostDetailsCallback(request);
-                            var normalizedRequest = new NormalizedRequest(request, artifacts, hostAndPort.Item1, hostAndPort.Item2);
-                            var crypto = new Cryptographer(normalizedRequest, artifacts, credential);
-
-                            // Request body is needed only when payload hash is present in the request
-                            string body = null;
-                            if (artifacts.PayloadHash != null && artifacts.PayloadHash.Length > 0)
+                            credential = options.CredentialsCallback(artifacts.Id);
+                            if (credential != null && credential.IsValid)
                             {
-                                body = await request.ReadBodyAsStringAsync();
-                            }
+                                HawkEventSource.Log.Debug(
+                                    String.Format("Algorithm={0} Key={1} ID={2}",
+                                                        credential.Algorithm.ToString(),
+                                                        Convert.ToBase64String(credential.Key),
+                                                        credential.Id));
 
-                            if (crypto.IsSignatureValid(body, request.ContentType)) // MAC and hash checks
-                            {
-                                if (IsTimestampFresh(now, artifacts, options))
+                                Tuple<string, string> hostAndPort = options.DetermineHostDetailsCallback(request);
+                                var normalizedRequest = new NormalizedRequest(request, artifacts, hostAndPort.Item1, hostAndPort.Item2);
+                                var crypto = new Cryptographer(normalizedRequest, artifacts, credential);
+
+                                // Request body is needed only when payload hash is present in the request
+                                string body = null;
+                                if (artifacts.PayloadHash != null && artifacts.PayloadHash.Length > 0)
                                 {
-                                    // If you get this far, you are authentic. Welcome and thanks for flying Hawk!
-                                    return new AuthenticationResult()
+                                    body = await request.ReadBodyAsStringAsync();
+                                }
+
+                                if (crypto.IsSignatureValid(body, request.ContentType)) // MAC and hash checks
+                                {
+                                    if (IsTimestampFresh(now, artifacts, options))
                                     {
-                                        IsAuthentic = true,
-                                        Artifacts = artifacts,
-                                        Credential = credential,
-                                        ApplicationSpecificData = artifacts.ApplicationSpecificData
-                                    };
-                                }
-                                else
-                                {
-                                    // Authentic but for the timestamp freshness.
-                                    // Give a chance to the client to correct the clocks skew.
-                                    var timestamp = new NormalizedTimestamp(DateTime.UtcNow, credential, options.LocalTimeOffsetMillis);
-                                    request.ChallengeParameter = timestamp.ToWwwAuthenticateHeaderParameter();
+                                        // If you get this far, you are authentic. Welcome and thanks for flying Hawk!
+
+                                        // Before returning the result, store nonce to detect replays.
+                                        options.StoreNonceCallback(artifacts.Nonce, credential.Id, options.ClockSkewSeconds);
+
+                                        return new AuthenticationResult()
+                                        {
+                                            IsAuthentic = true,
+                                            Artifacts = artifacts,
+                                            Credential = credential,
+                                            ApplicationSpecificData = artifacts.ApplicationSpecificData
+                                        };
+                                    }
+                                    else
+                                    {
+                                        // Authentic but for the timestamp freshness.
+                                        // Give a chance to the client to correct the clocks skew.
+                                        var timestamp = new NormalizedTimestamp(DateTime.UtcNow, credential, options.LocalTimeOffsetMillis);
+                                        request.ChallengeParameter = timestamp.ToWwwAuthenticateHeaderParameter();
+                                    }
                                 }
                             }
+                        }
+                        else
+                        {
+                            HawkEventSource.Log.NonceReplay(artifacts.Nonce, lastUsedBy);
                         }
                     }
                 }

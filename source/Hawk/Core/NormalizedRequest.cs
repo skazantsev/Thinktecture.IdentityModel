@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Thinktecture.IdentityModel.Hawk.Core.Extensions;
@@ -37,10 +38,10 @@ namespace Thinktecture.IdentityModel.Hawk.Core
         {
             this.artifacts = artifacts;
 
-            this.hostName = hostName ?? request.Uri.Host;
+            this.hostName = (hostName ?? request.Uri.Host).ToLower();
             this.port = port ?? request.Uri.Port.ToString();
             this.method = request.Method.Method.ToUpper();
-            this.path = request.Uri.PathAndQuery;
+            this.path = (WebUtility.UrlDecode(request.Uri.AbsolutePath) + request.Uri.Query).ToLower();
         }
 
         /// <summary>
