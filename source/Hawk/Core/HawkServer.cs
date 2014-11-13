@@ -61,10 +61,10 @@ namespace Thinktecture.IdentityModel.Hawk.Core
                                 Bewit.Authenticate(bewit, now, request, options) :
                                     await HawkSchemeHeader.AuthenticateAsync(now, request, options);
 
-            HawkEventSource.Log.Debug("Authentication Successful");
-
             if (result.IsAuthentic)
             {
+                HawkEventSource.Log.Debug("Authentication Successful");
+
                 // At this point, authentication is successful but make sure the request parts match what is in the
                 // application specific data 'ext' parameter by invoking the callback passing in the request object and 'ext'.
                 // The application specific data is considered verified, if the callback is not set or it returns true.
