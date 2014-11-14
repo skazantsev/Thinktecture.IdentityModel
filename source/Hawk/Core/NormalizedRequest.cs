@@ -41,7 +41,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core
             this.hostName = (hostName ?? request.Uri.Host).ToLower();
             this.port = port ?? request.Uri.Port.ToString();
             this.method = request.Method.Method.ToUpper();
-            this.path = (WebUtility.UrlDecode(request.Uri.AbsolutePath) + request.Uri.Query).ToLower();
+            this.path = WebUtility.UrlDecode(request.Uri.AbsolutePath) + request.Uri.Query;
         }
 
         /// <summary>
