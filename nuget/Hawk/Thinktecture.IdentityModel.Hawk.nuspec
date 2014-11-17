@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <version>2.1.0</version>
+    <version>2.1.1</version>
     <authors>Badrinarayanan Lakshmiraghavan, Dominick Baier, Brock Allen</authors>
     <owners>BadrinarayananLakshmiraghavan, Dominick Baier, Brock Allen</owners>
     <copyright>Badrinarayanan Lakshmiraghavan, Dominick Baier, Brock Allen 2013</copyright>
@@ -9,10 +9,6 @@
     <projectUrl>https://github.com/thinktecture</projectUrl>
     <iconUrl>http://1.gravatar.com/blavatar/3b437c799e12e32beb1d8cfda1199ab3?s=32</iconUrl>
 
-    <dependencies>
-      <dependency id="Thinktecture.IdentityModel.Core" version="1.0.0" />
-    </dependencies>
-    
     <id>Thinktecture.IdentityModel.Hawk</id>
     <title>Thinktecture.IdentityModel.Hawk</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
