@@ -22,7 +22,7 @@ namespace Thinktecture.IdentityModel.Client
                 throw new ArgumentNullException("token");
 
             if (innerHttpClientHandler == null)
-                throw new ArgumentNullException("inneHttpClientHandler");
+                throw new ArgumentNullException("innerHttpClientHandler");
 
             _client = new HttpClient(innerHttpClientHandler)
             {
