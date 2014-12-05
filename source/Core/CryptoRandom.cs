@@ -7,6 +7,7 @@
 
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Thinktecture.IdentityModel
 {
@@ -32,6 +33,25 @@ namespace Thinktecture.IdentityModel
             new RNGCryptoServiceProvider().GetBytes(bytes);
 
             return Convert.ToBase64String(bytes);
+        }
+
+        public static string CreateUniqueId(int length = 16)
+        {
+            var bytes = new byte[length];
+            new RNGCryptoServiceProvider().GetBytes(bytes);
+
+            return ByteArrayToString(bytes);
+        }
+
+        private static string ByteArrayToString(byte[] ba)
+        {
+            StringBuilder hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+            {
+                hex.AppendFormat("{0:x2}", b);
+            }
+
+            return hex.ToString();
         }
 
         /// <summary>
