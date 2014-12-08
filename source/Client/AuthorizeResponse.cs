@@ -37,6 +37,14 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
+        public string IdentityToken
+        {
+            get
+            {
+                return TryGet(OAuth2Constants.IdentityToken);
+            }
+        }
+
         public string Error
         {
             get
