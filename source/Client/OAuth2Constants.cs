@@ -24,6 +24,8 @@ namespace Thinktecture.IdentityModel.Client
         public const string ResponseType = "response_type";
         public const string State = "state";
         public const string Nonce = "nonce";
+        public const string LoginHint = "login_hint";
+        public const string AcrValues = "acr_values";
         public const string Error = "error";
 
         public static class GrantTypes

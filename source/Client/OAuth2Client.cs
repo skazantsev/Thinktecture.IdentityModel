@@ -74,7 +74,15 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
-		public string CreateCodeFlowUrl(string clientId, string scope = null, string redirectUri = null, string state = null, string nonce = null, Dictionary<string, string> additionalValues = null)
+		public string CreateCodeFlowUrl(
+            string clientId, 
+            string scope = null, 
+            string redirectUri = null, 
+            string state = null, 
+            string nonce = null, 
+            string loginHint = null,
+            string acrValues = null,
+            Dictionary<string, string> additionalValues = null)
 		{
 			return CreateAuthorizeUrl(
 				clientId: clientId,
@@ -83,10 +91,20 @@ namespace Thinktecture.IdentityModel.Client
 				redirectUri: redirectUri,
 				state: state,
                 nonce: nonce,
+                loginHint: loginHint,
+                acrValues: acrValues,
 				additionalValues: additionalValues);
 		}
 
-		public string CreateImplicitFlowUrl(string clientId, string scope = null, string redirectUri = null, string state = null, string nonce = null, Dictionary<string, string> additionalValues = null)
+		public string CreateImplicitFlowUrl(
+            string clientId, 
+            string scope = null, 
+            string redirectUri = null, 
+            string state = null, 
+            string nonce = null, 
+            string loginHint = null,
+            string acrValues = null,
+            Dictionary<string, string> additionalValues = null)
 		{
 			return CreateAuthorizeUrl(
 				clientId: clientId,
@@ -95,10 +113,21 @@ namespace Thinktecture.IdentityModel.Client
 				redirectUri: redirectUri,
 				state: state,
                 nonce: nonce,
+                loginHint: loginHint,
+                acrValues: acrValues,
 				additionalValues: additionalValues);
 		}
 
-		public string CreateAuthorizeUrl(string clientId, string responseType, string scope = null, string redirectUri = null, string state = null, string nonce = null, Dictionary<string, string> additionalValues = null)
+		public string CreateAuthorizeUrl(
+            string clientId, 
+            string responseType, 
+            string scope = null, 
+            string redirectUri = null, 
+            string state = null, 
+            string nonce = null,
+            string loginHint = null,
+            string acrValues = null,
+            Dictionary<string, string> additionalValues = null)
 		{
 			var values = new Dictionary<string, string>
 			{
@@ -124,6 +153,16 @@ namespace Thinktecture.IdentityModel.Client
             if (!string.IsNullOrWhiteSpace(nonce))
             {
                 values.Add(OAuth2Constants.Nonce, nonce);
+            }
+
+            if (!string.IsNullOrWhiteSpace(loginHint))
+            {
+                values.Add(OAuth2Constants.LoginHint, loginHint);
+            }
+
+            if (!string.IsNullOrWhiteSpace(acrValues))
+            {
+                values.Add(OAuth2Constants.AcrValues, acrValues);
             }
 
 			return CreateAuthorizeUrl(_address, Merge(values, additionalValues));
