@@ -18,7 +18,19 @@ namespace Thinktecture.IdentityModel.Client
 
                 foreach (var x in JsonObject)
                 {
-                    claims.Add(Tuple.Create(x.Key, x.Value.ToString()));
+                    var array = x.Value as JArray;
+
+                    if (array != null)
+                    {
+                        foreach (var item in array)
+                        {
+                            claims.Add(Tuple.Create(x.Key, item.ToString()));
+                        }
+                    }
+                    else
+                    {
+                        claims.Add(Tuple.Create(x.Key, x.Value.ToString()));
+                    }
                 }
 
                 Claims = claims;
