@@ -10,6 +10,8 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
     /// </summary>
     public class NonceGenerator
     {
+        private static RNGCryptoServiceProvider _rngProvider = new RNGCryptoServiceProvider();
+
         /// <summary>
         /// Generates a nonce matching the specified length and returns the same. Default length is 6.
         /// </summary>
@@ -20,10 +22,7 @@ namespace Thinktecture.IdentityModel.Hawk.Core.Helpers
             do
             {
                 byte[] bytes = new byte[length * 8];
-                using (var rngProvider = new RNGCryptoServiceProvider())
-                {
-                    rngProvider.GetBytes(bytes);
-                }
+                _rngProvider.GetBytes(bytes);
 
                 var characters = bytes.Where(b => (b >= 48 && b <= 57) ||       // 0 - 9
                                                     (b >= 97 && b <= 122) ||    // a - z
