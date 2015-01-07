@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Thinktecture.IdentityModel.Client
@@ -174,7 +175,7 @@ namespace Thinktecture.IdentityModel.Client
 			return string.Format("{0}?{1}", endpoint.AbsoluteUri, qs);
 		}
 
-		public Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password, string scope = null, Dictionary<string, string> additionalValues = null)
+		public Task<TokenResponse> RequestResourceOwnerPasswordAsync(string userName, string password, string scope = null, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var fields = new Dictionary<string, string>
 			{
@@ -188,10 +189,10 @@ namespace Thinktecture.IdentityModel.Client
 				fields.Add(OAuth2Constants.Scope, scope);
 			}
 
-			return RequestAsync(Merge(fields, additionalValues));
+			return RequestAsync(Merge(fields, additionalValues), cancellationToken);
 		}
 
-		public Task<TokenResponse> RequestAuthorizationCodeAsync(string code, string redirectUri, Dictionary<string, string> additionalValues = null)
+		public Task<TokenResponse> RequestAuthorizationCodeAsync(string code, string redirectUri, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var fields = new Dictionary<string, string>
 			{
@@ -200,10 +201,10 @@ namespace Thinktecture.IdentityModel.Client
 				{ OAuth2Constants.RedirectUri, redirectUri }
 			};
 
-			return RequestAsync(Merge(fields, additionalValues));
+			return RequestAsync(Merge(fields, additionalValues), cancellationToken);
 		}
 
-		public Task<TokenResponse> RequestRefreshTokenAsync(string refreshToken, Dictionary<string, string> additionalValues = null)
+		public Task<TokenResponse> RequestRefreshTokenAsync(string refreshToken, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var fields = new Dictionary<string, string>
 			{
@@ -211,10 +212,10 @@ namespace Thinktecture.IdentityModel.Client
 				{ OAuth2Constants.RefreshToken, refreshToken }
 			};
 
-			return RequestAsync(Merge(fields, additionalValues));
+			return RequestAsync(Merge(fields, additionalValues), cancellationToken);
 		}
 
-		public Task<TokenResponse> RequestClientCredentialsAsync(string scope = null, Dictionary<string, string> additionalValues = null)
+		public Task<TokenResponse> RequestClientCredentialsAsync(string scope = null, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var fields = new Dictionary<string, string>
 			{
@@ -226,10 +227,10 @@ namespace Thinktecture.IdentityModel.Client
 				fields.Add(OAuth2Constants.Scope, scope);
 			}
 
-			return RequestAsync(Merge(fields, additionalValues));
+			return RequestAsync(Merge(fields, additionalValues), cancellationToken);
 		}
 
-        public Task<TokenResponse> RequestCustomGrantAsync(string grantType, string scope = null, Dictionary<string, string> additionalValues = null)
+        public Task<TokenResponse> RequestCustomGrantAsync(string grantType, string scope = null, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             var fields = new Dictionary<string, string>
 			{
@@ -241,15 +242,15 @@ namespace Thinktecture.IdentityModel.Client
                 fields.Add(OAuth2Constants.Scope, scope);
             }
 
-            return RequestAsync(Merge(fields, additionalValues));
+            return RequestAsync(Merge(fields, additionalValues), cancellationToken);
         }
 
-        public Task<TokenResponse> RequestCustomAsync(Dictionary<string, string> values)
+        public Task<TokenResponse> RequestCustomAsync(Dictionary<string, string> values, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return RequestAsync(Merge(values));
+            return RequestAsync(Merge(values), cancellationToken);
         }
 
-		public Task<TokenResponse> RequestAssertionAsync(string assertionType, string assertion, string scope = null, Dictionary<string, string> additionalValues = null)
+		public Task<TokenResponse> RequestAssertionAsync(string assertionType, string assertion, string scope = null, Dictionary<string, string> additionalValues = null, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			var fields = new Dictionary<string, string>
 			{
@@ -262,12 +263,12 @@ namespace Thinktecture.IdentityModel.Client
 				fields.Add(OAuth2Constants.Scope, scope);
 			}
 
-			return RequestAsync(Merge(fields, additionalValues));
+			return RequestAsync(Merge(fields, additionalValues), cancellationToken);
 		}
 
-		public async Task<TokenResponse> RequestAsync(Dictionary<string, string> form)
+		public async Task<TokenResponse> RequestAsync(Dictionary<string, string> form, CancellationToken cancellationToken = default(CancellationToken))
 		{
-			var response = await _client.PostAsync(string.Empty, new FormUrlEncodedContent(form)).ConfigureAwait(false);
+			var response = await _client.PostAsync(string.Empty, new FormUrlEncodedContent(form), cancellationToken).ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
             {
