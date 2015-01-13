@@ -115,7 +115,7 @@ namespace Thinktecture.IdentityModel.Client
         protected virtual string GetStringOrNull(string name)
         {
             JToken value;
-            if (Json.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out value))
+            if (Json != null && Json.TryGetValue(name, StringComparison.OrdinalIgnoreCase, out value))
             {
                 return value.ToString();
             }
@@ -126,7 +126,7 @@ namespace Thinktecture.IdentityModel.Client
         protected virtual long GetLongOrNull(string name)
         {
             JToken value;
-            if (Json.TryGetValue(name, out value))
+            if (Json != null && Json.TryGetValue(name, out value))
             {
                 long longValue = 0;
                 if (long.TryParse(value.ToString(), out longValue))
