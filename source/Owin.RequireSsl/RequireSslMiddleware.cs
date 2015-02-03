@@ -44,6 +44,23 @@ namespace Thinktecture.IdentityModel.Owin
 
                     return;
                 }
+                else
+                {
+                    if (_options.ClientCertificateValidator != null)
+                    {
+                        try
+                        {
+                            _options.ClientCertificateValidator.Validate(cert);
+                        }
+                        catch (Exception ex)
+                        {
+                            context.Response.StatusCode = 403;
+                            context.Response.ReasonPhrase = ex.Message;
+
+                            return;
+                        }
+                    }
+                }
             }
 
             await _next(env);
