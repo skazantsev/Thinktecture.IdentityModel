@@ -14,6 +14,7 @@ namespace Thinktecture.IdentityModel.Client
         {
             AuthorizationCode,
             Token,
+            FormPost,
             Error
         };
 
@@ -102,19 +103,23 @@ namespace Thinktecture.IdentityModel.Client
             var queryParameters = new Dictionary<string, string>();
             string[] fragments = null;
 
+            // fragment encoded
             if (Raw.Contains("#"))
             {
                 fragments = Raw.Split('#');
                 ResponseType = ResponseTypes.Token;
             }
+            // query string encoded
             else if (Raw.Contains("?"))
             {
                 fragments = Raw.Split('?');
                 ResponseType = ResponseTypes.AuthorizationCode;
             }
+            // form encoded
             else
             {
-                throw new InvalidOperationException("Malformed callback URL");
+                fragments = new string[] { "", Raw };
+                ResponseType = ResponseTypes.FormPost;
             }
 
             if (Raw.Contains(OAuth2Constants.Error))
@@ -127,7 +132,7 @@ namespace Thinktecture.IdentityModel.Client
             foreach (var param in qparams)
             {
                 var parts = param.Split('=');
-                
+
                 if (parts.Length == 2)
                 {
                     Values.Add(parts[0], parts[1]);
