@@ -14,5 +14,11 @@ namespace Owin
             app.Use(typeof(RequireSslMiddleware), new RequireSslOptions { RequireClientCertificate = requireClientCertificate });
             return app;
         }
+
+        public static IAppBuilder RequireSsl(this IAppBuilder app, RequireSslOptions options)
+        {
+            app.Use(typeof(RequireSslMiddleware), options);
+            return app;
+        }
     }
 }
