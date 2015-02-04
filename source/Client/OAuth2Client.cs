@@ -128,6 +128,7 @@ namespace Thinktecture.IdentityModel.Client
             string nonce = null,
             string loginHint = null,
             string acrValues = null,
+            string responseMode = null,
             Dictionary<string, string> additionalValues = null)
         {
             var values = new Dictionary<string, string>
@@ -164,6 +165,11 @@ namespace Thinktecture.IdentityModel.Client
             if (!string.IsNullOrWhiteSpace(acrValues))
             {
                 values.Add(OAuth2Constants.AcrValues, acrValues);
+            }
+
+            if (!string.IsNullOrWhiteSpace(responseMode))
+            {
+                values.Add(OAuth2Constants.ResponseMode, responseMode);
             }
 
             return CreateAuthorizeUrl(_address, Merge(values, additionalValues));
