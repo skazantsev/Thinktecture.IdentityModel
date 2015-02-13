@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Owin", "Owin", "{E292B38C-341A-4274-84B1-C35D1E43F407}"
 EndProject
@@ -18,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{A9CC834E-BB74-4BBA-BA8F-3297011BAA0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmbeddedSts", "EmbeddedSts\EmbeddedSts.csproj", "{408440E6-E84F-4ECD-AEBA-F3D963EAC166}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hawk", "Hawk\Hawk.csproj", "{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}"
 EndProject
@@ -47,7 +45,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.RequireSsl", "Owin.Req
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Owin.ScopeValidation", "Owin.ScopeValidation\Owin.ScopeValidation.csproj", "{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Client.Shared", "Client.Shared\Client.Shared.shproj", "{917EB5F1-D71F-4E4F-97A6-C68704478B01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Net45", "Client.Net45\Client.Net45.csproj", "{683B2B88-8DFE-4D09-B43E-269CAF1DA2C7}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Client.Shared\Client.Shared.projitems*{917eb5f1-d71f-4e4f-97a6-c68704478b01}*SharedItemsImports = 13
+		Client.Shared\Client.Shared.projitems*{683b2b88-8dfe-4d09-b43e-269caf1da2c7}*SharedItemsImports = 4
+		Client.Shared\Client.Shared.projitems*{a9cc834e-bb74-4bba-ba8f-3297011baa0f}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -77,10 +84,6 @@ Global
 		{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAD936F-3F5C-4D31-B733-0B76AE4D1034}.Release|Any CPU.Build.0 = Release|Any CPU
-		{408440E6-E84F-4ECD-AEBA-F3D963EAC166}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{408440E6-E84F-4ECD-AEBA-F3D963EAC166}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{408440E6-E84F-4ECD-AEBA-F3D963EAC166}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{408440E6-E84F-4ECD-AEBA-F3D963EAC166}.Release|Any CPU.Build.0 = Release|Any CPU
 		{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98905541-49D5-44E1-BA0A-6AE9AE0CCB66}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -133,6 +136,10 @@ Global
 		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2D4FED1-5FCE-4CDA-BA24-0D15D874104B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683B2B88-8DFE-4D09-B43E-269CAF1DA2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683B2B88-8DFE-4D09-B43E-269CAF1DA2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683B2B88-8DFE-4D09-B43E-269CAF1DA2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683B2B88-8DFE-4D09-B43E-269CAF1DA2C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
