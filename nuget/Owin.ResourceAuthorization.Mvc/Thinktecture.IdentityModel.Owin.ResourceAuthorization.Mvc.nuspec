@@ -19,8 +19,8 @@
     <title>Thinktecture.IdentityModel.Owin - Resource Authorization for ASP.NET MVC</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     
-    <description>MVC intgration package for resource/action based authorization.</description>
-    <summary>MVC intgration package for resource/action based authorization.</summary>
+    <description>MVC integration package for resource/action based authorization.</description>
+    <summary>MVC integration package for resource/action based authorization.</summary>
     
     <language>en-US</language>
     <tags>Security OWIN Katana Identity Claims Authentication Authorization Access Control WebAPI Web API MVC</tags>
