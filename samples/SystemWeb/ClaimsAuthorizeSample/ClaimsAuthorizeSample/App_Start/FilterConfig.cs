@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using Thinktecture.IdentityModel.SystemWeb;
+using Thinktecture.IdentityModel.SystemWeb.Mvc;
 
 namespace ClaimsAuthorizeSample
 {
@@ -11,7 +12,7 @@ namespace ClaimsAuthorizeSample
             filters.Add(new HandleErrorAttribute());
             
             // global claims authorize filter
-            filters.Add(new ClaimsAuthorizeAttribute());
+            filters.Add(new ResourceActionAuthorizeAttribute());
         }
     }
 }

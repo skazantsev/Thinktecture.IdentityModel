@@ -4,18 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Thinktecture.IdentityModel.SystemWeb;
+using Thinktecture.IdentityModel.SystemWeb.Mvc;
 
 namespace ClaimsAuthorizeSample.Controllers
 {
     public class HomeController : Controller
     {
-        [ClaimsAuthorize("View", "Home")]
+        [ResourceActionAuthorize("View", "Home")]
         public ActionResult Index()
         {
             return View();
         }
 
-        [ClaimsAuthorize("View", "About")]
+        [ResourceActionAuthorize("View", "About")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -23,7 +24,7 @@ namespace ClaimsAuthorizeSample.Controllers
             return View();
         }
 
-        [ClaimsAuthorize("View", "Contact")]
+        [ResourceActionAuthorize("View", "Contact")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
